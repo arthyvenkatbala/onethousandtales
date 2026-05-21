@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stories — One Thousand Tales by Dilip Kumar</title>
+  <meta name="description" content="Wedding stories, reflections on photography, and the quiet moments behind every frame — from One Thousand Tales by Dilip Kumar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F2EDE3;
+      --cream-dark: #EAE3D5;
+      --dark: #140903;
+      --gold: #C5A46A;
+      --gold-light: #DCC898;
+      --muted: #8A7D72;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4vw;
+      background: rgba(242,237,227,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(197,164,106,0.15);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo-text {
+      font-family: var(--serif);
+      font-size: 1.9rem;
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .nav-logo-text span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    nav ul a {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav ul a:hover { color: var(--gold); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 7rem 4vw 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .page-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.2rem;
+    }
+    .page-header h1 em { font-style: italic; color: var(--gold); }
+    .page-header p {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 48ch;
+      line-height: 1.85;
+    }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 0 4vw;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(197,164,106,0.35);
+      background: transparent;
+      color: var(--muted);
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: var(--cream);
+    }
+
+    /* ── BLOG GRID ── */
+    .blog-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 4vw 7rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2rem;
+    }
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--dark);
+      group: true;
+    }
+    .blog-card-thumb {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      margin-bottom: 1.2rem;
+      background: var(--cream-dark);
+    }
+    .blog-card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+    .blog-card:hover .blog-card-thumb img { transform: scale(1.04); }
+    .blog-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20,9,3,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.4s;
+    }
+    .blog-card:hover .blog-card-overlay { background: rgba(20,9,3,0.3); }
+    .blog-card-overlay span {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(242,237,227,0.7);
+      padding: 0.55rem 1.2rem;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .blog-card:hover .blog-card-overlay span { opacity: 1; }
+    .blog-card-tag {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .blog-card h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+    .blog-card:hover h2 { color: var(--gold); }
+    .blog-card p {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.8;
+      flex: 1;
+    }
+    .blog-card-meta {
+      margin-top: 1rem;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(138,125,114,0.6);
+      text-transform: uppercase;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(197,164,106,0.15);
+    }
+
+    /* ── FEATURED STORY (first card large) ── */
+    .blog-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(197,164,106,0.15);
+      margin-bottom: 1rem;
+    }
+    .blog-card.featured .blog-card-thumb {
+      margin-bottom: 0;
+      aspect-ratio: 4/3;
+    }
+    .blog-card.featured h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+    }
+    .blog-card.featured p {
+      font-size: 1.05rem;
+      max-width: 42ch;
+    }
+
+    /* ── DIVIDER ── */
+    .stories-divider {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 0 4vw;
+    }
+    .stories-divider hr {
+      border: none;
+      border-top: 1px solid rgba(197,164,106,0.15);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: var(--cream);
+      padding: 4rem 4vw 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(197,164,106,0.1);
+      margin-bottom: 2rem;
+    }
+    footer h4 {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    footer ul a {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: rgba(242,237,227,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    footer ul a:hover { color: var(--gold); }
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    footer p {
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      font-style: italic;
+      color: rgba(242,237,227,0.3);
+      line-height: 1.7;
+      margin-top: 0.75rem;
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-copy {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: rgba(242,237,227,0.2);
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .blog-grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
+      .blog-card.featured { grid-column: 1 / -1; grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      nav ul { display: none; }
+    }
+    @media (max-width: 600px) {
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-text">
+      One Thousand Tales
+      <span>By Dilip Kumar</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#portfolio">Portfolio</a></li>
+    <li><a href="blog.html">Stories</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <span class="section-label">Our Stories</span>
+  <h1>Weddings We've Been<br>Trusted to <em>Tell</em></h1>
+  <p>Every frame holds a feeling. Every wedding is a world of its own. Here, we share the ones that stayed with us.</p>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Stories</button>
+  <button class="filter-btn" data-filter="wedding">Weddings</button>
+  <button class="filter-btn" data-filter="destination">Destinations</button>
+  <button class="filter-btn" data-filter="essay">Essays</button>
+  <button class="filter-btn" data-filter="couple">Couple Shoots</button>
+</div>
+
+<!-- BLOG GRID -->
+<main class="blog-grid">
+
+  <!-- FEATURED -->
+  <a href="blog/aravind-bhavani.html" class="blog-card featured reveal" data-category="wedding">
+    <div class="blog-card-thumb">
+      <img src="https://onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1650-poster-HR.jpg" alt="Aravind & Bhavani Wedding" loading="eager">
+      <div class="blog-card-overlay"><span>Read Story ↗</span></div>
+    </div>
+    <div class="blog-card-body">
+      <span class="blog-card-tag">Wedding · Chennai</span>
+      <h2>Aravind &amp; Bhavani</h2>
+      <p>A Tamil wedding told through quiet glances, joyous rituals, and the hundred small moments between the big ones.</p>
+      <div class="blog-card-meta">October 2021 · Wedding Photography</div>
+    </div>
+  </a>
+
+  <!-- CARD 2 -->
+  <a href="blog/santhosh-kristiina.html" class="blog-card reveal" data-category="destination" style="transition-delay:0.1s">
+    <div class="blog-card-thumb">
+      <img src="https://onethousandtales.net/wp-content/uploads/2023/09/Santhosh-Kristiina-Helsinki-Wedding-Dilip-Kumar-Photography-6-scaled.jpg" alt="Santhosh & Kristiina Wedding" loading="lazy">
+      <div class="blog-card-overlay"><span>Read Story ↗</span></div>
+    </div>
+    <span class="blog-card-tag">Destination · Helsinki</span>
+    <h2>Santhosh &amp; Kristiina</h2>
+    <p>Two worlds, one morning, and a ceremony that needed no translation to be understood.</p>
+    <div class="blog-card-meta">September 2023 · Destination Wedding</div>
+  </a>
+
+  <!-- CARD 3 -->
+  <a href="blog/why-moments-matter.html" class="blog-card reveal" data-category="essay" style="transition-delay:0.2s">
+    <div class="blog-card-thumb">
+      <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/9-1-e1699968406964.jpg?fit=600%2C400&ssl=1" alt="Why Moments Matter" loading="lazy">
+      <div class="blog-card-overlay"><span>Read Essay ↗</span></div>
+    </div>
+    <span class="blog-card-tag">Essay · Photography</span>
+    <h2>Why Moments Matter</h2>
+    <p>Why real, unscripted moments are worth more than any posed photograph — and how we chase them at every wedding.</p>
+    <div class="blog-card-meta">November 2023 · Essay</div>
+  </a>
+
+  <!-- CARD 4 -->
+  <a href="blog/the-light-between-rituals.html" class="blog-card reveal" data-category="wedding" style="transition-delay:0.05s">
+    <div class="blog-card-thumb">
+      <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/4.jpg?fit=600%2C400&ssl=1" alt="The Light Between Rituals" loading="lazy">
+      <div class="blog-card-overlay"><span>Read Story ↗</span></div>
+    </div>
+    <span class="blog-card-tag">Wedding · Tamil Nadu</span>
+    <h2>The Light Between Rituals</h2>
+    <p>On a summer morning in Madurai, we found beauty in the pauses — the exhale between one ritual and the next.</p>
+    <div class="blog-card-meta">June 2023 · Wedding Photography</div>
+  </a>
+
+  <!-- CARD 5 -->
+  <a href="blog/when-two-families-become-one.html" class="blog-card reveal" data-category="wedding" style="transition-delay:0.15s">
+    <div class="blog-card-thumb">
+      <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/2.jpg?fit=600%2C400&ssl=1" alt="When Two Families Become One" loading="lazy">
+      <div class="blog-card-overlay"><span>Read Story ↗</span></div>
+    </div>
+    <span class="blog-card-tag">Wedding · Destination</span>
+    <h2>When Two Families Become One</h2>
+    <p>A three-day celebration across Udaipur's lakes, where every evening felt like a painting in motion.</p>
+    <div class="blog-card-meta">March 2023 · Destination Wedding</div>
+  </a>
+
+  <!-- CARD 6 -->
+  <a href="blog/the-quiet-before-the-ceremony.html" class="blog-card reveal" data-category="essay" style="transition-delay:0.25s">
+    <div class="blog-card-thumb">
+      <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/5.jpg?fit=600%2C400&ssl=1" alt="The Quiet Before the Ceremony" loading="lazy">
+      <div class="blog-card-overlay"><span>Read Essay ↗</span></div>
+    </div>
+    <span class="blog-card-tag">Essay · Behind the Lens</span>
+    <h2>The Quiet Before the Ceremony</h2>
+    <p>What happens in the hour before the music starts is often where the truest stories live.</p>
+    <div class="blog-card-meta">January 2024 · Essay</div>
+  </a>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">One Thousand Tales</div>
+      <div style="font-family:var(--sans);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);">By Dilip Kumar</div>
+      <p>"We don't just deliver photos and videos. We create something you'll hold onto for a lifetime."</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#portfolio">Portfolio</a></li>
+        <li><a href="blog.html">Stories</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="index.html#services">Weddings</a></li>
+        <li><a href="index.html#services">Couple Shoots</a></li>
+        <li><a href="index.html#services">Portraits</a></li>
+        <li><a href="index.html#services">Destinations</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919600066721">+91 96000 66721</a></li>
+        <li><a href="mailto:hello@onethousandtales.net">hello@onethousandtales.net</a></li>
+        <li><a href="https://www.youtube.com/@onethousandtales" target="_blank">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 One Thousand Tales · All rights reserved</p>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.blog-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = f === 'all' || card.dataset.category === f;
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
