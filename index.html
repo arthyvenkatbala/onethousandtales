@@ -3,1726 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding & Family Photographer | One Thousand Tales</title>
-<meta name="description" content="Wedding, couple, and family photography in Chennai. We capture real, emotional stories across weddings and life's meaningful celebrations.">
-<!-- Performance: preconnect to external origins -->
+<title>One Thousand Tales — Wedding & Family Photography by Dilip Kumar</title>
+<meta name="description" content="Wedding, couple, and family photography. We observe life as it unfolds.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://photos.smugmug.com">
-<link rel="preconnect" href="https://img.youtube.com">
-<!-- Preload logo and first slide image -->
 <link rel="preload" href="./logo.png" as="image">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F2EDE3;
+  --dark: #140903;
+  --gold: #C5A46A;
+  --gold-light: #DCC898;
+  --muted: #8A7D72;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--dark); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; }
+a { text-decoration: none; color: inherit; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--gold); }
 
-  :root {
-    --cream: #F2EDE3;
-    --cream-dark: #E8E0D0;
-    --dark: #140903;
-    --dark-mid: #2A1A10;
-    --gold: #C5A46A;
-    --gold-light: #DCC898;
-    --gold-pale: #F0E8D4;
-    --muted: #8A7D72;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'Jost', sans-serif;
-  }
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.8rem 3rem;
+  transition: background 0.5s, padding 0.4s;
+}
+nav.scrolled { background: rgba(242,237,227,0.95); backdrop-filter: blur(12px); padding: 1rem 3rem; box-shadow: 0 1px 0 rgba(197,164,106,0.15); }
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; }
+.nav-logo img { width: 54px; height: 54px; object-fit: contain; background: var(--dark); border-radius: 4px; padding: 4px; }
+.nav-logo-text { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--cream); line-height: 1.15; transition: color 0.4s; }
+.nav-logo-text span { display: block; font-family: var(--sans); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+nav.scrolled .nav-logo-text { color: var(--dark); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,237,227,0.85); transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+nav.scrolled .nav-links a { color: var(--dark); }
+.nav-cta { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid rgba(242,237,227,0.5); color: var(--cream); padding: 0.6rem 1.4rem; transition: all 0.3s; }
+.nav-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+nav.scrolled .nav-cta { border-color: var(--gold); color: var(--dark); }
+nav.scrolled .nav-cta:hover { background: var(--gold); color: var(--dark); }
+@media (max-width: 900px) { .nav-links { display: none; } nav { padding: 1.2rem 1.5rem; } nav.scrolled { padding: 0.8rem 1.5rem; } }
+@media (max-width: 600px) {
+  .nav-logo { flex-direction: column; align-items: center; gap: 0.3rem; }
+  .nav-logo img { width: 44px; height: 44px; }
+  .nav-logo-text { font-size: 0.85rem; text-align: center; }
+  .nav-logo-text span { font-size: 0.44rem; }
+}
 
-  html { scroll-behavior: smooth; font-size: 16px; }
+/* ── HERO — full bleed slideshow ── */
+.hero {
+  position: relative; height: 100vh; min-height: 600px;
+  overflow: hidden; background: var(--dark);
+}
+.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+.hero-slide.active { opacity: 1; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,9,3,0.25) 0%, rgba(20,9,3,0.05) 40%, rgba(20,9,3,0.5) 100%); }
+.hero-text {
+  position: absolute; bottom: 8vh; left: 6vw;
+  color: var(--cream);
+}
+.hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.hero-h1 { font-family: var(--serif); font-size: clamp(3rem, 6vw, 6rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.01em; }
+.hero-h1 em { font-style: italic; color: var(--gold-light); }
+.hero-sub { margin-top: 1.5rem; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,237,227,0.6); }
+.hero-nav { position: absolute; bottom: 2rem; right: 3rem; display: flex; gap: 0.75rem; }
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(242,237,227,0.35); border: none; cursor: pointer; padding: 0; transition: background 0.3s; }
+.hero-dot.active { background: var(--gold); }
+.scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(242,237,227,0.5); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.scroll-line { width: 1px; height: 40px; background: rgba(242,237,227,0.3); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-  body {
-    background: var(--cream);
-    color: var(--dark);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+/* ── MARQUEE ── */
+.marquee-wrap { background: var(--dark); padding: 1rem 0; overflow: hidden; }
+.marquee-track { display: flex; gap: 3rem; white-space: nowrap; animation: marquee 28s linear infinite; }
+.marquee-item { font-family: var(--serif); font-size: 1rem; font-weight: 300; font-style: italic; color: rgba(197,164,106,0.6); flex-shrink: 0; }
+.marquee-item b { color: var(--gold); font-weight: 400; font-style: normal; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--cream-dark); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+/* ── EDITORIAL GRID (main image showcase) ── */
+.editorial { padding: 0; }
+.ed-row { display: grid; min-height: 70vh; }
+.ed-row-1 { grid-template-columns: 3fr 2fr; }
+.ed-row-2 { grid-template-columns: 1fr 1fr 1fr; min-height: 55vh; }
+.ed-row-3 { grid-template-columns: 2fr 3fr; }
+.ed-row-4 { grid-template-columns: 1fr 1fr; min-height: 60vh; }
+.ed-cell { position: relative; overflow: hidden; }
+.ed-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+.ed-cell:hover img { transform: scale(1.04); }
+.ed-text-cell { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem; background: var(--cream); }
+.ed-text-cell.dark { background: var(--dark); }
+.ed-label { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.ed-text-cell h2 { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem; }
+.ed-text-cell h2 em { font-style: italic; color: var(--gold); }
+.ed-text-cell.dark h2 { color: var(--cream); }
+.ed-text-cell p { font-family: var(--serif); font-size: 1.05rem; font-weight: 300; line-height: 1.85; color: var(--muted); max-width: 380px; }
+.ed-text-cell.dark p { color: rgba(242,237,227,0.6); }
+.ed-link { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 2rem; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; transition: gap 0.3s; cursor: pointer; }
+.ed-link:hover { gap: 1rem; }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.5rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.5s, box-shadow 0.5s, padding 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(242, 237, 227, 0.96);
-    box-shadow: 0 1px 0 rgba(197, 164, 106, 0.2);
-    padding: 1rem 3rem;
-    backdrop-filter: blur(10px);
-  }
+/* ── FULLBLEED QUOTE ── */
+.fullbleed-quote { position: relative; height: 75vh; overflow: hidden; }
+.fullbleed-quote img { width: 100%; height: 100%; object-fit: cover; }
+.fq-overlay { position: absolute; inset: 0; background: rgba(20,9,3,0.52); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.fq-inner { text-align: center; max-width: 800px; }
+.fq-inner blockquote { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 3.2rem); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.35; letter-spacing: -0.01em; }
+.fq-inner blockquote em { color: var(--gold-light); font-style: normal; }
+.fq-inner cite { display: block; margin-top: 2rem; font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(197,164,106,0.7); font-style: normal; }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-  }
-  .nav-logo-svg { width: 38px; height: 38px; }
-  .nav-logo-img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: var(--dark);
-    padding: 6px;
-    flex-shrink: 0;
-  }
-  .footer-logo-img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: var(--dark);
-    padding: 6px;
-  }
-  .nav-logo-text {
-    font-family: var(--serif);
-    font-size: 1.9rem;
-    font-weight: 400;
-    color: var(--dark);
-    letter-spacing: 0.03em;
-    line-height: 1.2;
-  }
-  .nav-logo-text span {
-    display: block;
-    font-size: 1.1rem;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    font-family: var(--sans);
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-  /* Mobile: logo stacked above text, centred */
-  @media (max-width: 600px) {
-    .nav-logo {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.35rem;
-      text-align: center;
-    }
-    .nav-logo-img { width: 56px; height: 56px; padding: 5px; }
-    .nav-logo-text { font-size: 0.9rem; text-align: center; }
-    .nav-logo-text span { font-size: 0.54rem; letter-spacing: 0.14em; }
-  }
+/* ── STATS BAR ── */
+.stats-bar { background: var(--dark); padding: 4rem 3rem; display: flex; justify-content: center; gap: 8rem; }
+.stat-item { text-align: center; }
+.stat-num { font-family: var(--serif); font-size: 3.5rem; font-weight: 300; color: var(--gold); line-height: 1; display: block; }
+.stat-lbl { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(242,237,227,0.4); margin-top: 0.5rem; display: block; }
+@media (max-width: 600px) { .stats-bar { gap: 3rem; padding: 3rem 1.5rem; } .stat-num { font-size: 2.5rem; } }
 
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-    align-items: center;
-  }
-  .nav-links a {
-    text-decoration: none;
-    color: var(--dark);
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 400;
-    position: relative;
-    padding-bottom: 2px;
-    transition: color 0.3s;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--gold);
-    transition: width 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-links a:hover::after { width: 100%; }
+/* ── MASONRY-STYLE GALLERY ── */
+.gallery-section { padding: 2px; background: #fff; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.gallery-grid .tall { grid-row: span 2; }
+.g-cell { overflow: hidden; position: relative; }
+.g-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; min-height: 280px; }
+.g-cell:hover img { transform: scale(1.05); }
+@media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr 1fr; } .gallery-grid .tall { grid-row: span 1; } }
 
-  .nav-cta {
-    background: var(--dark) !important;
-    color: var(--cream) !important;
-    padding: 0.55rem 1.4rem !important;
-    letter-spacing: 0.1em !important;
-    transition: background 0.3s !important;
-  }
-  .nav-cta:hover { background: var(--gold) !important; color: var(--dark) !important; }
-  .nav-cta::after { display: none !important; }
+/* ── ABOUT STRIP ── */
+.about-strip { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+.about-img { position: relative; overflow: hidden; }
+.about-img img { width: 100%; height: 100%; object-fit: cover; }
+.about-body { display: flex; flex-direction: column; justify-content: center; padding: 6rem 5rem; background: var(--cream); }
+.about-body .ed-label { margin-bottom: 1rem; }
+.about-body h2 { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.1; margin-bottom: 0.5rem; }
+.about-body h2 em { font-style: italic; color: var(--gold); }
+.about-name { font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+.about-body p { font-family: var(--serif); font-size: 1.05rem; font-weight: 300; line-height: 1.9; color: #5A4A42; margin-bottom: 1.2rem; max-width: 420px; }
+@media (max-width: 900px) { .about-strip { grid-template-columns: 1fr; } .about-img { height: 60vw; } .about-body { padding: 4rem 2rem; } }
 
-  /* ── HERO ── */
-  .hero {
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-    background: var(--cream);
-  }
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    align-items: center;
-    width: 100%;
-    min-height: 100vh;
-    padding: 5rem 0;
-  }
-  .hero-text-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4rem 3rem 4rem 6rem;
-  }
+/* ── STORIES ── */
+.stories-section { padding: 7rem 3rem; background: var(--cream); }
+.stories-header { text-align: center; margin-bottom: 4rem; }
+.stories-header h2 { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; }
+.stories-header h2 em { font-style: italic; color: var(--gold); }
+.stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.story-card { cursor: pointer; }
+.story-thumb { aspect-ratio: 3/4; overflow: hidden; position: relative; margin-bottom: 1.2rem; }
+.story-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+.story-card:hover .story-thumb img { transform: scale(1.05); }
+.story-tag { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.4rem; }
+.story-card h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; margin-bottom: 0.5rem; }
+.story-card p { font-family: var(--serif); font-size: 0.95rem; font-weight: 300; color: var(--muted); line-height: 1.6; }
+.story-read { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.8rem; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid transparent; transition: border-color 0.3s, gap 0.3s; }
+.story-card:hover .story-read { border-color: var(--gold); gap: 0.9rem; }
+@media (max-width: 700px) { .stories-grid { grid-template-columns: 1fr; } .stories-section { padding: 5rem 1.5rem; } }
 
-  /* Hero image gallery — contained within 4:3 slide col */
-  .hero-gallery {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    background: #1a1208;
-  }
-  .hg-slide {
-    position: absolute;
-    inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-    pointer-events: none;
-  }
-  .hg-slide.active { opacity: 1; z-index: 1; }
-  .hg-dots {
-    position: absolute;
-    bottom: 1.2rem; left: 50%;
-    transform: translateX(-50%);
-    display: flex; gap: 6px; z-index: 5;
-  }
-  .hg-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: rgba(242,237,227,0.35);
-    cursor: pointer; border: none; padding: 0;
-    transition: background 0.3s, transform 0.3s;
-  }
-  .hg-dot.active { background: var(--cream); transform: scale(1.4); }
-  .hg-loading {
-    position: absolute; inset: 0;
-    background: #1a1208;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 10; transition: opacity 0.6s;
-  }
-  .hg-loading.hidden { opacity: 0; pointer-events: none; }
-  .hg-spinner {
-    width: 28px; height: 28px;
-    border: 2px solid rgba(197,164,106,0.25);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin 0.9s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .hg-counter {
-    position: absolute; top: 1rem; right: 1rem;
-    font-family: var(--sans); font-size: 0.65rem;
-    letter-spacing: 0.14em; color: rgba(242,237,227,0.5);
-    z-index: 5; background: rgba(20,9,3,0.35);
-    padding: 0.3rem 0.6rem; backdrop-filter: blur(4px);
-  }
-  .hero-slide-col {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 3/2;
-    align-self: center;
-    box-shadow: 0 20px 60px rgba(20,9,3,0.12);
-    background: #1a1208; /* show dark bg instantly while images load */
-  }
-  @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; padding: 5rem 0 2rem; min-height: unset; }
-    .hero-text-col { padding: 2rem 1.5rem 2rem; }
-    .hero-slide-col { width: 95%; margin: 0 auto; min-height: 220px; }
-  }
-  @media (max-width: 600px) {
-    .hero-slide-col { width: 100%; border-radius: 0; aspect-ratio: 4/3; min-height: 260px; }
-    .hg-dots { bottom: 0.75rem; gap: 5px; }
-    .hg-dot { width: 4px; height: 4px; }
-    .hg-counter { font-size: 0.58rem; top: 0.6rem; right: 0.6rem; }
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -10%; right: -5%;
-    width: 55vw; height: 55vw;
-    border-radius: 50%;
-    border: 1px solid rgba(197, 164, 106, 0.15);
-    pointer-events: none;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 5%; left: -8%;
-    width: 40vw; height: 40vw;
-    border-radius: 50%;
-    border: 1px solid rgba(197, 164, 106, 0.1);
-    pointer-events: none;
-  }
+/* ── YOUTUBE ── */
+.yt-section { position: relative; height: 70vh; overflow: hidden; background: var(--dark); }
+.yt-bg { position: absolute; inset: 0; background-image: url('https://img.youtube.com/vi/tF45j7xUAms/mqdefault.jpg'); background-size: cover; background-position: center; opacity: 0.5; }
+.yt-overlay { position: absolute; inset: 0; background: rgba(20,9,3,0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; cursor: pointer; }
+.yt-overlay:hover .yt-ring { border-color: var(--gold); transform: scale(1.08); }
+.yt-ring { width: 80px; height: 80px; border-radius: 50%; border: 2px solid rgba(197,164,106,0.6); display: flex; align-items: center; justify-content: center; background: rgba(20,9,3,0.45); backdrop-filter: blur(4px); transition: all 0.3s; }
+.yt-play { width: 0; height: 0; border-style: solid; border-width: 14px 0 14px 24px; border-color: transparent transparent transparent var(--gold); margin-left: 4px; }
+.yt-meta { text-align: center; }
+.yt-label { font-size: 0.6rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.5rem; }
+.yt-title { font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 300; font-style: italic; color: var(--cream); }
+.yt-hint { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(242,237,227,0.35); margin-top: 0.5rem; display: block; }
+.yt-more { position: absolute; top: 2rem; right: 2rem; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(242,237,227,0.5); border-bottom: 1px solid rgba(197,164,106,0.3); padding-bottom: 2px; transition: color 0.3s; }
+.yt-more:hover { color: var(--gold); }
+.yt-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 
-  .hero-eyebrow {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 40px; height: 1px;
-    background: var(--gold);
-  }
+/* ── CONTACT ── */
+.contact-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
+.contact-img { position: relative; overflow: hidden; }
+.contact-img img { width: 100%; height: 100%; object-fit: cover; }
+.contact-body { display: flex; flex-direction: column; justify-content: center; padding: 6rem 5rem; background: var(--dark); }
+.contact-body .ed-label { color: var(--gold); margin-bottom: 1rem; }
+.contact-body h2 { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; color: var(--cream); line-height: 1.1; margin-bottom: 2rem; }
+.contact-body h2 em { font-style: italic; color: var(--gold); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-field.full { grid-column: 1/-1; }
+.form-field label { font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(242,237,227,0.4); }
+.form-field input, .form-field select, .form-field textarea {
+  background: rgba(242,237,227,0.06); border: 1px solid rgba(197,164,106,0.2);
+  color: var(--cream); font-family: var(--serif); font-size: 1rem; font-weight: 300;
+  padding: 0.75rem 1rem; outline: none; transition: border-color 0.3s;
+  -webkit-appearance: none;
+}
+.form-field input::placeholder, .form-field textarea::placeholder { color: rgba(242,237,227,0.25); }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--gold); }
+.form-field select option { background: var(--dark); }
+.form-field textarea { resize: vertical; min-height: 90px; }
+.form-submit { margin-top: 1.5rem; background: none; border: 1px solid var(--gold); color: var(--gold); font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 1rem 2.5rem; cursor: pointer; transition: all 0.3s; }
+.form-submit:hover { background: var(--gold); color: var(--dark); }
+@media (max-width: 900px) { .contact-section { grid-template-columns: 1fr; } .contact-img { height: 50vw; } .contact-body { padding: 4rem 2rem; } .form-row { grid-template-columns: 1fr; } }
 
-  .hero-headline {
-    font-family: var(--serif);
-    font-size: clamp(3.2rem, 7vw, 7rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    color: var(--dark);
-    max-width: 14ch;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.4s forwards;
-  }
-  .hero-headline em {
-    font-style: italic;
-    color: var(--gold);
-  }
+/* ── FOOTER ── */
+footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(197,164,106,0.12); }
+.footer-brand .nav-logo { margin-bottom: 1.2rem; }
+.footer-brand p { font-family: var(--serif); font-size: 0.95rem; font-weight: 300; color: rgba(242,237,227,0.35); line-height: 1.8; max-width: 280px; }
+.footer-col h4 { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col a { font-family: var(--serif); font-size: 0.95rem; font-weight: 300; color: rgba(242,237,227,0.45); transition: color 0.3s; }
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(242,237,227,0.2); }
+.footer-phone { font-family: var(--serif); font-size: 1rem; color: rgba(242,237,227,0.4); }
+@media (max-width: 700px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } footer { padding: 3rem 1.5rem 2rem; } }
 
-  .hero-sub {
-    font-family: var(--serif);
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
-    color: var(--muted);
-    font-weight: 300;
-    max-width: 42ch;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.6s forwards;
-  }
+/* ── MODAL ── */
+.story-modal-bg { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(20,9,3,0.75); backdrop-filter: blur(4px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.story-modal-bg.open { display: block; }
+.story-modal { background: var(--cream); max-width: 820px; margin: 3vh auto 5vh; overflow: hidden; animation: modalIn 0.35s ease; }
+@keyframes modalIn { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none} }
+.modal-close-bar { position: sticky; top: 0; z-index: 10; display: flex; justify-content: flex-end; padding: 1rem 1.2rem; background: var(--cream); }
+.modal-close { background: none; border: none; cursor: pointer; font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.modal-close:hover { color: var(--gold); }
+.modal-cover img { width: 100%; max-height: 60vh; object-fit: cover; display: block; }
+.modal-body { padding: 3rem 4rem 5rem; }
+.modal-tag { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem; }
+.modal-body h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 1.2rem; }
+.modal-intro { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(197,164,106,0.2); }
+.modal-text { font-family: var(--serif); font-size: 1.05rem; font-weight: 300; line-height: 1.9; }
+.modal-text p { margin-bottom: 1.4rem; }
+.modal-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 2rem; }
+.modal-gallery img { width: 100%; height: 240px; object-fit: cover; }
+@media (max-width: 600px) { .modal-body { padding: 2rem 1.5rem 3rem; } }
 
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.8s forwards;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--dark);
-    color: var(--cream);
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 1rem 2.2rem;
-    font-family: var(--sans);
-    font-weight: 400;
-    transition: background 0.3s, color 0.3s, transform 0.2s;
-  }
-  .btn-primary:hover { background: var(--gold); color: var(--dark); transform: translateY(-1px); }
-  .btn-primary svg { width: 14px; height: 14px; transition: transform 0.3s; }
-  .btn-primary:hover svg { transform: translateX(3px); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--dark);
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1px solid var(--gold);
-    transition: color 0.3s;
-  }
-  .btn-ghost:hover { color: var(--gold); }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 25%; /* center over left text column */
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 1s 1.2s forwards;
-  }
-  .hero-scroll span {
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .scroll-line {
-    width: 1px; height: 50px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollDrop 2s 2s infinite;
-  }
-
-  /* ── MARQUEE BAND ── */
-  .marquee-band {
-    overflow: hidden;
-    background: var(--dark);
-    padding: 1.1rem 0;
-    white-space: nowrap;
-  }
-  .marquee-inner {
-    display: inline-flex;
-    animation: marquee 28s linear infinite;
-  }
-  .marquee-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 0 1.5rem;
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--gold-light);
-    letter-spacing: 0.04em;
-  }
-  .marquee-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  /* ── SECTION LAYOUT ── */
-  section { position: relative; }
-  /* Offset for fixed nav on anchor jump */
-  #about, #services, #portfolio, #contact, #intro, #philosophy {
-    scroll-margin-top: 90px;
-  }
-
-  .section-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 3rem;
-  }
-
-  .section-label {
-    font-family: var(--sans);
-    font-size: 0.68rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-  .section-label::before {
-    content: '';
-    width: 28px; height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  /* ── INTRO ── */
-  .intro {
-    padding: 8rem 0;
-  }
-  .intro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .intro-left h2 {
-    font-family: var(--serif);
-    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin-bottom: 2rem;
-    color: var(--dark);
-  }
-  .intro-left h2 em { font-style: italic; color: var(--gold); }
-
-  .intro-fragments {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-  .fragment {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-weight: 300;
-    color: var(--muted);
-    padding-left: 1.2rem;
-    border-left: 2px solid transparent;
-    transition: border-color 0.3s, color 0.3s;
-    cursor: default;
-  }
-  .fragment:hover { border-color: var(--gold); color: var(--dark); }
-
-  .intro-right {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .intro-right p {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--dark-mid);
-    line-height: 1.85;
-  }
-  .intro-stat-row {
-    display: flex;
-    gap: 3rem;
-    margin-top: 1rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--cream-dark);
-  }
-  .stat { display: flex; flex-direction: column; gap: 0.2rem; }
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* ── EMOTIONAL ── */
-  .emotional {
-    padding: 8rem 0;
-    background: var(--dark);
-    overflow: hidden;
-    position: relative;
-  }
-  .emotional::before {
-    content: '"';
-    position: absolute;
-    top: -2rem; left: 3rem;
-    font-family: var(--serif);
-    font-size: 25rem;
-    color: rgba(197,164,106,0.05);
-    line-height: 1;
-    pointer-events: none;
-  }
-  .emotional-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 3rem;
-    text-align: center;
-  }
-  .emotional-inner blockquote {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 3vw, 3rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--cream);
-    line-height: 1.4;
-    margin-bottom: 2rem;
-    letter-spacing: -0.01em;
-  }
-  .emotional-inner blockquote em {
-    color: var(--gold-light);
-    font-style: normal;
-  }
-  .emotional-note {
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* ── PHILOSOPHY ── */
-  .philosophy {
-    padding: 9rem 0;
-  }
-  .philosophy-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 5rem;
-    align-items: start;
-  }
-  .philosophy-left {
-    position: sticky;
-    top: 6rem;
-  }
-  .philosophy-left h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin-bottom: 1.5rem;
-  }
-  .philosophy-left p {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.85;
-  }
-  .philosophy-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .philosophy-item {
-    padding: 2.5rem 0;
-    border-top: 1px solid var(--cream-dark);
-    display: grid;
-    grid-template-columns: 2.5rem 1fr;
-    gap: 1.5rem;
-    align-items: start;
-    transition: background 0.3s;
-  }
-  .philosophy-item:last-child { border-bottom: 1px solid var(--cream-dark); }
-  .p-num {
-    font-family: var(--serif);
-    font-size: 0.85rem;
-    color: var(--gold);
-    font-style: italic;
-    padding-top: 0.3rem;
-  }
-  .p-content h3 {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--dark);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-  }
-  .p-content p {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.85;
-  }
-
-  /* ── SERVICES ── */
-  .services {
-    padding: 9rem 0;
-    background: var(--dark);
-  }
-  .services-header {
-    margin-bottom: 5rem;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-  .services-header h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--cream);
-  }
-  .services-header h2 em { font-style: italic; color: var(--gold-light); }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(197,164,106,0.15);
-  }
-  .service-card {
-    background: var(--dark);
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.4s;
-    cursor: default;
-  }
-  .service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s;
-  }
-  .service-card:hover { background: #180A04; }
-  .service-card:hover::after { transform: scaleX(1); }
-
-  .service-num {
-    font-family: var(--serif);
-    font-size: 0.8rem;
-    color: var(--gold);
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    display: block;
-  }
-  .service-card h3 {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--cream);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  .service-card p {
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(242,237,227,0.5);
-    line-height: 1.8;
-  }
-  .service-tag {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-size: 0.65rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 400;
-    border: 1px solid rgba(197,164,106,0.3);
-    padding: 0.3rem 0.8rem;
-  }
-
-  /* ── ABOUT / FOUNDER ── */
-  .about {
-    padding: 9rem 0;
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 7rem;
-    align-items: center;
-  }
-  .about-left { position: relative; }
-  .about-img-frame {
-    aspect-ratio: 4/5;
-    background: var(--cream-dark);
-    position: relative;
-    overflow: hidden;
-  }
-  .about-dilip-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .about-left:hover .about-dilip-photo { transform: scale(1.03); }
-  .about-img-frame::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(197,164,106,0.08) 0%, transparent 60%);
-  }
-  .about-img-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--muted);
-    text-align: center;
-    padding: 2rem;
-  }
-  .about-accent-box {
-    position: absolute;
-    bottom: -2rem;
-    right: -2rem;
-    width: 140px;
-    background: var(--gold);
-    padding: 1.5rem;
-    text-align: center;
-  }
-  .about-accent-box .num {
-    display: block;
-    font-family: var(--serif);
-    font-size: 2.2rem;
-    font-weight: 300;
-    color: var(--dark);
-    line-height: 1;
-  }
-  .about-accent-box .label {
-    display: block;
-    font-size: 0.65rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--dark-mid);
-    margin-top: 0.4rem;
-  }
-
-  .about-right h2 {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 2.8vw, 2.8rem);
-    font-weight: 300;
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-  .about-right h2 em { font-style: italic; color: var(--gold); }
-  .about-name {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .about-name::before { content: '—'; color: var(--gold); }
-  .about-right p {
-    font-family: var(--serif);
-    font-size: 1.08rem;
-    font-weight: 300;
-    color: var(--dark-mid);
-    line-height: 1.9;
-    margin-bottom: 1.2rem;
-  }
-  .about-right p em { font-style: italic; color: var(--dark); }
-
-  /* ── PORTFOLIO ── */
-  .portfolio {
-    padding: 0;
-    background: var(--dark);
-    overflow: hidden;
-  }
-  .portfolio-top {
-    padding: 7rem 0 5rem;
-  }
-  .portfolio-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 4rem;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-  .portfolio-header h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    color: var(--cream);
-  }
-  .portfolio-header h2 em { font-style: italic; color: var(--gold-light); }
-
-  /* Tab switcher */
-  .portfolio-tabs {
-    display: flex;
-    gap: 0;
-    border: 1px solid rgba(197,164,106,0.25);
-  }
-  .tab-btn {
-    background: none;
-    border: none;
-    border-right: 1px solid rgba(197,164,106,0.25);
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(242,237,227,0.4);
-    cursor: pointer;
-    padding: 0.75rem 1.6rem;
-    transition: background 0.3s, color 0.3s;
-    font-weight: 400;
-    position: relative;
-  }
-  .tab-btn:last-child { border-right: none; }
-  .tab-btn.active {
-    background: var(--gold);
-    color: var(--dark);
-  }
-  .tab-btn:not(.active):hover {
-    background: rgba(197,164,106,0.08);
-    color: var(--gold-light);
-  }
-
-  /* Slideshow panels */
-
-
-  @keyframes panelFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* Two-column layout: slideshow left, info right */
-  .panel-layout {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 0;
-    min-height: 600px;
-  }
-
-  /* Slideshow iframe wrapper */
-  .slideshow-wrap {
-    position: relative;
-    background: #0A0502;
-    overflow: hidden;
-  }
-  .slideshow-wrap iframe {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-    border: none;
-  }
-
-  /* Panel info sidebar */
-  .panel-info {
-    background: #0E0603;
-    padding: 4rem 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    border-left: 1px solid rgba(197,164,106,0.1);
-  }
-  .panel-info-eyebrow {
-    font-family: var(--sans);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-  }
-  .panel-info h3 {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--cream);
-    letter-spacing: -0.01em;
-  }
-  .panel-info h3 em { font-style: italic; color: var(--gold-light); }
-  .panel-info p {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(242,237,227,0.45);
-    line-height: 1.85;
-  }
-  .panel-info-divider {
-    width: 32px; height: 1px;
-    background: rgba(197,164,106,0.35);
-  }
-  .panel-info-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--sans);
-    font-size: 0.78rem;
-    color: rgba(242,237,227,0.35);
-    letter-spacing: 0.06em;
-  }
-  .meta-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-  .panel-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    padding-bottom: 3px;
-    border-bottom: 1px solid rgba(197,164,106,0.35);
-    transition: color 0.3s, border-color 0.3s;
-    margin-top: 0.5rem;
-    width: fit-content;
-  }
-  .panel-cta:hover { color: var(--gold-light); border-color: var(--gold-light); }
-  .panel-cta svg { width: 12px; height: 12px; transition: transform 0.3s; }
-  .panel-cta:hover svg { transform: translateX(3px); }
-
-  /* Progress bar under active slideshow */
-  .portfolio-footer-bar {
-    padding: 2.5rem 0 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid rgba(197,164,106,0.1);
-    margin-top: 0;
-  }
-  .pf-note {
-    font-family: var(--serif);
-    font-size: 0.9rem;
-    font-style: italic;
-    color: rgba(242,237,227,0.3);
-  }
-  .pf-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--sans);
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(242,237,227,0.4);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .pf-link:hover { color: var(--gold); }
-
-  /* Iframe fallback overlay */
-  .iframe-fallback {
-    position: absolute;
-    inset: 0;
-    background: #0A0502;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-    pointer-events: auto;
-  }
-  .ifb-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-    text-align: center;
-    padding: 2rem;
-  }
-  .ifb-inner p {
-    font-family: var(--serif) !important;
-    font-size: 1rem !important;
-    font-style: italic !important;
-    color: rgba(242,237,227,0.35) !important;
-    line-height: 1.7 !important;
-    margin: 0 !important;
-  }
-  .ifb-inner small { font-size: 0.8rem; opacity: 0.6; }
-  .ifb-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: transparent;
-    border: 1px solid rgba(197,164,106,0.4);
-    color: var(--gold);
-    text-decoration: none;
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 0.8rem 1.8rem;
-    transition: background 0.3s, border-color 0.3s;
-    margin-top: 0.5rem;
-  }
-  .ifb-btn:hover { background: rgba(197,164,106,0.1); border-color: var(--gold); }
-
-  /* ── STORIES (portfolio replacement) ── */
-  .stories {
-    padding: 9rem 0;
-    background: var(--cream);
-  }
-  .stories-header {
-    margin-bottom: 5rem;
-  }
-  .stories-header h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.75rem;
-  }
-  .stories-header h2 em { font-style: italic; color: var(--gold); }
-  .stories-intro {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--muted);
-    margin-top: 0.75rem;
-  }
-
-  .story-entry {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    grid-template-rows: auto auto;
-    gap: 0 3rem;
-    margin-bottom: 5rem;
-    padding-bottom: 5rem;
-    border-bottom: 1px solid var(--cream-dark);
-  }
-  .story-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .story-entry:nth-child(even) { direction: rtl; }
-  .story-entry:nth-child(even) > * { direction: ltr; }
-
-  .story-cover-link { grid-row: 1; grid-column: 1; display: block; }
-  .story-entry:nth-child(even) .story-cover-link { grid-column: 2; }
-  .story-cover {
-    position: relative;
-    overflow: hidden;
-  }
-  .story-cover img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.7s ease;
-  }
-  .story-cover:hover img { transform: scale(1.04); }
-  .story-cover-overlay {
-    position: absolute; inset: 0;
-    background: rgba(20,9,3,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-  .story-cover:hover .story-cover-overlay { opacity: 1; }
-  .story-cover-cta {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--cream);
-    border: 1px solid rgba(242,237,227,0.6);
-    padding: 0.7rem 1.5rem;
-  }
-
-  .story-meta {
-    grid-row: 1; grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem 0 1rem 0.25rem;
-    overflow: visible;
-  }
-  .story-entry:nth-child(even) .story-meta { grid-column: 1; }
-  .story-tag {
-    font-family: var(--sans);
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-  }
-  .story-meta h3 {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
-    font-weight: 300;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    overflow: visible;
-  }
-  .story-meta h3 a {
-    text-decoration: none;
-    color: var(--dark);
-    transition: color 0.3s;
-  }
-  .story-meta h3 a:hover { color: var(--gold); }
-  .story-desc {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--muted);
-    line-height: 1.8;
-    max-width: 38ch;
-  }
-
-  /* Horizontal filmstrip */
-  .story-filmstrip-wrap {
-    grid-row: 2;
-    grid-column: 1 / -1;
-    overflow-x: auto;
-    padding: 1.5rem 0 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--gold) transparent;
-  }
-  .story-filmstrip-wrap::-webkit-scrollbar { height: 3px; }
-  .story-filmstrip-wrap::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
-  .story-filmstrip {
-    display: flex;
-    gap: 0.6rem;
-    width: max-content;
-    padding-bottom: 0.5rem;
-  }
-  .story-filmstrip img {
-    height: 200px;
-    width: auto;
-    object-fit: cover;
-    display: block;
-    flex-shrink: 0;
-    transition: opacity 0.3s;
-    cursor: pointer;
-  }
-  .story-filmstrip img:hover { opacity: 0.85; }
-
-  @media (max-width: 900px) {
-    .stories { padding: 5rem 0; }
-    .story-entry { grid-template-columns: 1fr; gap: 1.5rem 0; }
-    .story-cover-link, .story-meta { grid-column: 1 !important; grid-row: auto !important; }
-    .story-entry:nth-child(even) { direction: ltr; }
-    .story-filmstrip img { height: 140px; }
-  }
-
-  .stories-more {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 4rem 0 1rem;
-    border-top: 1px solid rgba(197,164,106,0.15);
-    margin-top: 3rem;
-    text-align: center;
-  }
-  .stories-more-note {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--muted);
-  }
-  .stories-more-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--dark);
-    text-decoration: none;
-    border: 1px solid rgba(197,164,106,0.5);
-    padding: 0.9rem 2.4rem;
-    transition: background 0.3s, border-color 0.3s, color 0.3s;
-  }
-  .stories-more-btn:hover {
-    background: var(--dark);
-    border-color: var(--dark);
-    color: var(--cream);
-  }
-  .stories-more-btn svg { transition: transform 0.3s; }
-  .stories-more-btn:hover svg { transform: translateX(4px); }
-
-
-  /* ── YOUTUBE CLICK-TO-WATCH ── */
-  .yt-poster {
-    position: absolute; inset: 0;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    overflow: hidden;
-    background: #0A0502;
-    transition: opacity 0.4s ease;
-  }
-  .yt-poster-bg {
-    position: absolute; inset: 0;
-    background-image: url('https://img.youtube.com/vi/tF45j7xUAms/hqdefault.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.55;
-    transition: opacity 0.4s;
-  }
-  .yt-poster:hover .yt-poster-bg { opacity: 0.7; }
-
-  /* Cinematic letter-box lines */
-  .yt-poster::before, .yt-poster::after {
-    content: '';
-    position: absolute; left: 0; right: 0;
-    height: 12%;
-    background: rgba(10,5,2,0.85);
-    z-index: 1;
-  }
-  .yt-poster::before { top: 0; }
-  .yt-poster::after  { bottom: 0; }
-
-  .yt-play-ring {
-    position: relative; z-index: 2;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    border: 2px solid rgba(197,164,106,0.6);
-    display: flex; align-items: center; justify-content: center;
-    transition: border-color 0.3s, transform 0.3s;
-    background: rgba(20,9,3,0.5);
-    backdrop-filter: blur(4px);
-  }
-  .yt-poster:hover .yt-play-ring {
-    border-color: var(--gold);
-    transform: scale(1.08);
-  }
-  .yt-play-icon {
-    width: 0; height: 0;
-    border-style: solid;
-    border-width: 14px 0 14px 26px;
-    border-color: transparent transparent transparent var(--gold);
-    margin-left: 5px;
-  }
-  .yt-poster-meta {
-    position: relative; z-index: 2;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 0.4rem;
-    text-align: center;
-  }
-  .yt-poster-label {
-    font-family: var(--sans);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-  }
-  .yt-poster-title {
-    font-family: var(--serif);
-    font-size: clamp(1rem, 2vw, 1.4rem);
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(242,237,227,0.7);
-  }
-  .yt-open-hint {
-    position: absolute; bottom: 15%; z-index: 2;
-    font-family: var(--sans);
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(242,237,227,0.3);
-    transition: color 0.3s;
-  }
-  .yt-poster:hover .yt-open-hint { color: rgba(242,237,227,0.6); }
-
-  /* When iframe is loaded inline */
-  .yt-iframe-live {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    border: none;
-  }
-  /* ── YOUTUBE SECTION ── */
-  .yt-section {
-    padding: 9rem 0;
-    background: var(--dark);
-  }
-  .yt-header {
-    margin-bottom: 3rem;
-  }
-  .yt-header h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    color: var(--cream);
-    margin-bottom: 0.75rem;
-  }
-  .yt-header h2 em { font-style: italic; color: var(--gold-light); }
-  .yt-header p {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(242,237,227,0.45);
-  }
-  .yt-more-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1.5rem;
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(197,164,106,0.4);
-    padding-bottom: 0.2rem;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .yt-more-link:hover { color: var(--cream); border-color: var(--cream); }
-  .yt-wrap {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    background: #0A0502;
-  }
-  .yt-wrap iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none;
-  }
-
-  /* ── CONTACT ── */
-  .contact {
-    padding: 9rem 0;
-  }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 7rem;
-    align-items: start;
-  }
-  .contact-left h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin-bottom: 1.2rem;
-  }
-  .contact-left h2 em { font-style: italic; color: var(--gold); }
-  .contact-left p {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.85;
-    margin-bottom: 2.5rem;
-  }
-  .contact-info { display: flex; flex-direction: column; gap: 1rem; }
-  .contact-info a {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-    font-family: var(--sans);
-    font-size: 0.9rem;
-    color: var(--dark-mid);
-    letter-spacing: 0.04em;
-    transition: color 0.3s;
-  }
-  .contact-info a:hover { color: var(--gold); }
-  .ci-icon {
-    width: 36px; height: 36px;
-    border: 1px solid var(--cream-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-group label {
-    font-size: 0.68rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 400;
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--cream-dark);
-    padding: 0.75rem 0;
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--dark);
-    outline: none;
-    transition: border-color 0.3s;
-    width: 100%;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-  .form-group select {
-    background: var(--cream);
-    padding: 0.75rem 0.5rem;
-    cursor: pointer;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus { border-color: var(--gold); }
-  .form-group input::placeholder,
-  .form-group textarea::placeholder { color: var(--muted); font-style: italic; }
-  .form-group textarea { resize: none; height: 80px; }
-
-  /* Service checkboxes */
-  .service-checks {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid rgba(197,164,106,0.25);
-    background: var(--cream);
-  }
-  .check-item {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.9rem;
-    cursor: pointer;
-    border-bottom: 1px solid rgba(197,164,106,0.12);
-    transition: background 0.2s;
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: var(--dark);
-    user-select: none;
-  }
-  .check-item:hover { background: rgba(197,164,106,0.07); }
-  .check-item input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 14px; height: 14px;
-    border: 1px solid rgba(197,164,106,0.5);
-    background: transparent;
-    flex-shrink: 0;
-    cursor: pointer;
-    position: relative;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .check-item input[type="checkbox"]:checked {
-    background: var(--gold);
-    border-color: var(--gold);
-  }
-  .check-item input[type="checkbox"]:checked::after {
-    content: '';
-    position: absolute;
-    left: 3px; top: 1px;
-    width: 5px; height: 8px;
-    border: 1.5px solid var(--dark);
-    border-top: none; border-left: none;
-    transform: rotate(40deg);
-  }
-  .check-item:has(input:checked) { background: rgba(197,164,106,0.1); }
-
-  .form-submit {
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .form-note {
-    font-family: var(--serif);
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--muted);
-    max-width: 22ch;
-    line-height: 1.6;
-  }
-
-  /* ── TESTIMONIAL ── */
-  .testimonials {
-    padding: 6rem 0;
-    background: var(--gold-pale);
-    overflow: hidden;
-  }
-  .test-inner {
-    display: flex;
-    gap: 3rem;
-    animation: marquee 35s linear infinite;
-    white-space: nowrap;
-  }
-  .test-card {
-    background: var(--cream);
-    padding: 2rem 2.5rem;
-    min-width: 380px;
-    white-space: normal;
-    flex-shrink: 0;
-  }
-  .test-text {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--dark);
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-  }
-  .test-author {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--dark);
-    padding: 5rem 0 2.5rem;
-  }
-  .footer-inner { max-width: 1240px; margin: 0 auto; padding: 0 3rem; }
-  .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1.5fr;
-    gap: 4rem;
-    margin-bottom: 4rem;
-    padding-bottom: 4rem;
-    border-bottom: 1px solid rgba(197,164,106,0.15);
-  }
-  .footer-brand {}
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.2rem;
-    text-decoration: none;
-  }
-  .footer-logo-text {
-    font-family: var(--serif);
-    font-size: 1rem;
-    color: var(--cream);
-    line-height: 1.2;
-  }
-  .footer-logo-text span {
-    display: block;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    font-family: var(--sans);
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-  .footer-brand p {
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(242,237,227,0.45);
-    line-height: 1.8;
-    max-width: 30ch;
-  }
-  .footer-col h4 {
-    font-family: var(--sans);
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 500;
-    margin-bottom: 1.2rem;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-  .footer-col ul li a {
-    text-decoration: none;
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(242,237,227,0.55);
-    transition: color 0.3s;
-  }
-  .footer-col ul li a:hover { color: var(--gold-light); }
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-copy {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: rgba(242,237,227,0.3);
-  }
-  .footer-social {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  .footer-social a {
-    width: 34px; height: 34px;
-    border: 1px solid rgba(197,164,106,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: rgba(242,237,227,0.5);
-    font-family: var(--serif);
-    font-size: 0.8rem;
-    font-style: italic;
-    transition: border-color 0.3s, color 0.3s;
-  }
-  .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes scrollDrop {
-    0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
-    30% { transform: scaleY(1); opacity: 1; }
-    70% { transform: scaleY(1); opacity: 1; }
-    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── MOBILE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1.2rem 1.5rem; align-items: flex-start; }
-    nav.scrolled { padding: 0.8rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { padding: 8rem 1.5rem 5rem; }
-    .section-inner { padding: 0 1.5rem; }
-    .intro-grid, .philosophy-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .philosophy-left { position: static; }
-    .intro { padding: 5rem 0; }
-    .philosophy, .about, .contact { padding: 5rem 0; }
-    .portfolio-top { padding: 4rem 0 2rem; }
-    .services { padding: 5rem 0; }
-    .services-grid { grid-template-columns: 1fr; }
-    .services-header { flex-direction: column; align-items: flex-start; gap: 2rem; }
-    .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .panel-layout { grid-template-columns: 1fr; }
-    .panel-info { padding: 2.5rem 1.5rem; }
-    .slideshow-wrap iframe { min-height: 280px; }
-    .portfolio-footer-bar { padding: 2rem 0 3.5rem; flex-direction: column; gap: 1rem; align-items: flex-start; }
-    .form-row { grid-template-columns: 1fr; }
-    .about-accent-box { display: none; }
-    .intro-stat-row { gap: 2rem; }
-  }
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
@@ -1730,178 +247,366 @@
 <!-- NAV -->
 <nav id="mainNav">
   <a href="#" class="nav-logo">
-    <img src="./logo.png" alt="One Thousand Tales Logo" class="nav-logo-img">
-    <div class="nav-logo-text">
-      One Thousand Tales
-      <span>by Dilip Kumar</span>
-    </div>
+    <img src="./logo.png" alt="One Thousand Tales logo">
+    <div class="nav-logo-text">One Thousand Tales<span>By Dilip Kumar</span></div>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact" class="nav-cta">Book a Date</a></li>
+    <li><a href="#stories">Stories</a></li>
+    <li><a href="#films">Films</a></li>
+    <li><a href="#about">About</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-inner">
-
-    <!-- LEFT: Text content -->
-    <div class="hero-text-col">
-      <div class="hero-eyebrow">Wedding &amp; Family Photography</div>
-      <h1 class="hero-headline">
-        We observe <em>life</em> as it unfolds.
-      </h1>
-      <p class="hero-sub">
-        Not performances. Not manufactured moments.<br>
-        Just people, relationships, tension, humour, silence — all existing at once.
-      </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">
-          Tell Us Your Story
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-        <a href="#portfolio" class="btn-ghost">View Our Work</a>
-      </div>
-    </div>
-
-
-    <!-- RIGHT: Hero Slideshow
-    ═══════════════════════════════════════════════════════════════
-      HOW TO UPDATE YOUR PHOTOS:
-      1. Open your SmugMug album, click a photo
-      2. Right-click the photo → "Copy image address"  (or use
-         SmugMug's Share panel → Original URL)
-      3. Paste the URL into the SLIDESHOW_IMAGES list below
-      4. Add or remove lines to show more/fewer photos
-    ═══════════════════════════════════════════════════════════════ -->
-    <div class="hero-slide-col">
-      <div class="hero-gallery" id="heroGallery">
-        <div class="hg-loading" id="hgLoading"><div class="hg-spinner"></div></div>
-        <div class="hg-dots" id="hgDots"></div>
-        <div class="hg-counter" id="hgCounter"></div>
-      </div>
-    </div>
-
-  </div><!-- .hero-inner -->
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
+<section class="hero" id="hero">
+  <div class="hero-slide active" id="hs0"><img src="https://photos.smugmug.com/photos/i-Lm9bMKc/0/L/i-Lm9bMKc-L.jpg" alt="" loading="eager"></div>
+  <div class="hero-slide" id="hs1"><img src="https://photos.smugmug.com/photos/i-vDxfFjj/0/L/i-vDxfFjj-L.jpg" alt="" loading="eager"></div>
+  <div class="hero-slide" id="hs2"><img src="https://photos.smugmug.com/photos/i-dvnzjnJ/0/L/i-dvnzjnJ-L.jpg" alt="" loading="lazy"></div>
+  <div class="hero-slide" id="hs3"><img src="https://photos.smugmug.com/photos/i-PKF4GV7/0/L/i-PKF4GV7-L.jpg" alt="" loading="lazy"></div>
+  <div class="hero-slide" id="hs4"><img src="https://photos.smugmug.com/photos/i-GPXHHwW/0/L/i-GPXHHwW-L.jpg" alt="" loading="lazy"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">Wedding &amp; Family Photography</div>
+    <h1 class="hero-h1">We observe <em>life</em><br>as it unfolds.</h1>
+    <p class="hero-sub">Chennai &nbsp;·&nbsp; India &nbsp;·&nbsp; Worldwide</p>
   </div>
+  <div class="hero-nav" id="heroDots"></div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-band" aria-hidden="true">
-  <div class="marquee-inner">
-    <span class="marquee-item"><span class="marquee-dot"></span>Wedding Photography</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Couple Stories</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Family Celebrations</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Wedding Films</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Destination Weddings</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Portraits</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Chennai · India · World</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Wedding Photography</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Couple Stories</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Family Celebrations</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Wedding Films</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Destination Weddings</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Portraits</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Chennai · India · World</span>
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><b>Wedding Photography</b> · Documentary · Candid</span>
+    <span class="marquee-item"><b>300+</b> Weddings · 14+ Years</span>
+    <span class="marquee-item"><b>Couple Stories</b> · Family Celebrations</span>
+    <span class="marquee-item"><b>One Thousand Tales</b> · by Dilip Kumar</span>
+    <span class="marquee-item"><b>Chennai</b> · India · Worldwide</span>
+    <span class="marquee-item"><b>Wedding Photography</b> · Documentary · Candid</span>
+    <span class="marquee-item"><b>300+</b> Weddings · 14+ Years</span>
+    <span class="marquee-item"><b>Couple Stories</b> · Family Celebrations</span>
+    <span class="marquee-item"><b>One Thousand Tales</b> · by Dilip Kumar</span>
+    <span class="marquee-item"><b>Chennai</b> · India · Worldwide</span>
   </div>
 </div>
 
-<!-- INTRO -->
-<section class="intro" id="intro">
-  <div class="section-inner">
-    <div class="intro-grid">
-      <div class="intro-left reveal">
-        <div class="section-label">The Way We See</div>
-        <h2>No wedding unfolds in a <em>straight line.</em></h2>
-        <div class="intro-fragments">
-          <p class="fragment">A distracted child.</p>
-          <p class="fragment">Someone laughing in the background.</p>
-          <p class="fragment">A fleeting glance nobody else noticed.</p>
-          <p class="fragment">Conversations crossing over each other.</p>
-          <p class="fragment">Tiny details hidden inside larger moments.</p>
-        </div>
-      </div>
-      <div class="intro-right reveal" style="transition-delay: 0.15s">
-        <p>These are the things we pay attention to. Not just what happened — but how life moved through it. While one moment is happening in the centre, five others are quietly unfolding around it. We are watching all of them — less interested in performances, and more interested in what people reveal when they forget the camera is there. That unpredictability is what keeps us curious, and what keeps the photographs alive long after the day is over.</p>
-        <div class="intro-stat-row">
-          <div class="stat">
-            <span class="stat-num">300+</span>
-            <span class="stat-label">Weddings</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">14+</span>
-            <span class="stat-label">Years</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">∞</span>
-            <span class="stat-label">Moments</span>
-          </div>
-        </div>
-      </div>
+<!-- EDITORIAL GRID -->
+<section class="editorial" id="portfolio">
+
+  <!-- Row 1: Big photo left, text right -->
+  <div class="ed-row ed-row-1">
+    <div class="ed-cell reveal">
+      <img src="https://photos.smugmug.com/photos/i-ZQdJsQb/0/L/i-ZQdJsQb-L.jpg" alt="Wedding photography">
+    </div>
+    <div class="ed-text-cell reveal" style="transition-delay:0.15s">
+      <div class="ed-label">The Way We See</div>
+      <h2>No wedding unfolds in a <em>straight line.</em></h2>
+      <p>A distracted child. Someone laughing in the background. A fleeting glance nobody else noticed. These are the moments we live for.</p>
+      <span class="ed-link" onclick="document.getElementById('stories').scrollIntoView({behavior:'smooth'})">View Our Stories →</span>
     </div>
   </div>
+
+  <!-- Row 2: Three equal photos -->
+  <div class="ed-row ed-row-2">
+    <div class="ed-cell reveal"><img src="https://photos.smugmug.com/photos/i-dRZzW2D/0/L/i-dRZzW2D-L.jpg" alt=""></div>
+    <div class="ed-cell reveal" style="transition-delay:0.1s"><img src="https://photos.smugmug.com/photos/i-R6WJzvP/0/L/i-R6WJzvP-L.jpg" alt=""></div>
+    <div class="ed-cell reveal" style="transition-delay:0.2s"><img src="https://photos.smugmug.com/photos/i-zSnX3M9/0/L/i-zSnX3M9-L.jpg" alt=""></div>
+  </div>
+
+  <!-- Row 3: Text left dark, big photo right -->
+  <div class="ed-row ed-row-3">
+    <div class="ed-text-cell dark reveal">
+      <div class="ed-label">Our Philosophy</div>
+      <h2>Observation<br>over <em>direction.</em></h2>
+      <p>We never ask anyone to pose. We disappear into the room and let life happen — capturing what people reveal when they forget the camera exists.</p>
+      <span class="ed-link" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About Dilip Kumar →</span>
+    </div>
+    <div class="ed-cell reveal" style="transition-delay:0.15s">
+      <img src="https://photos.smugmug.com/photos/i-j9T2kk5/0/L/i-j9T2kk5-L.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- Row 4: Two equal photos -->
+  <div class="ed-row ed-row-4">
+    <div class="ed-cell reveal"><img src="https://photos.smugmug.com/photos/i-NLSL5ZH/0/L/i-NLSL5ZH-L.jpg" alt=""></div>
+    <div class="ed-cell reveal" style="transition-delay:0.12s"><img src="https://photos.smugmug.com/photos/i-vPB5qVx/0/L/i-vPB5qVx-L.jpg" alt=""></div>
+  </div>
+
 </section>
 
-<!-- EMOTIONAL -->
-<section class="emotional">
-  <div class="emotional-inner reveal">
-    <blockquote>
-      "Years from now, when everything has changed —<br>
-      these photographs will take you back.<br>
-      To the laughter. To the people.<br>
-      To the moments you didn't even realise<br>
-      were <em>important.</em>"
-    </blockquote>
-    <span class="emotional-note">One Thousand Tales · by Dilip Kumar</span>
+<!-- FULLBLEED QUOTE -->
+<div class="emotional-quote reveal">
+  <div class="eq-deco">"</div>
+  <blockquote>"Years from now, when everything has changed —<br>these photographs will take you back.<br>To the laughter. To the people.<br>To the moments you didn't even realise<br>were <em>important.</em>"</blockquote>
+  <cite>One Thousand Tales · by Dilip Kumar</cite>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item reveal"><span class="stat-num">300+</span><span class="stat-lbl">Weddings</span></div>
+  <div class="stat-item reveal" style="transition-delay:0.1s"><span class="stat-num">14+</span><span class="stat-lbl">Years</span></div>
+  <div class="stat-item reveal" style="transition-delay:0.2s"><span class="stat-num">∞</span><span class="stat-lbl">Moments</span></div>
+</div>
+
+<!-- MASONRY GALLERY -->
+<section class="gallery-section">
+  <div class="gallery-grid">
+    <div class="g-cell tall"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-309.jpg?fit=800%2C1200&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-703.jpg?fit=800%2C533&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-274.jpg?fit=800%2C533&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-552.jpg?fit=800%2C533&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell tall"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/09/Santhosh-Kristiina-Helsinki-Wedding-Dilip-Kumar-Photography-6-scaled.jpg?fit=800%2C1200&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-876.jpg?fit=800%2C533&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-847.jpg?fit=800%2C533&ssl=1" alt="" loading="lazy"></div>
+    <div class="g-cell"><img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-1265.jpg?fit=800%2C533&ssl=1" alt="" loading="lazy"></div>
   </div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section class="philosophy" id="philosophy">
+
+<style>
+/* ── OLD SECTIONS CSS ── */
+
+  /* ── PHILOSOPHY ITEMS (new 2x2 grid) ── */
+  .philo-items-section { padding: 7rem 0; }
+  .philo-header { margin-bottom: 4rem; }
+  .philo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .philo-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.5rem;
+    padding: 3rem 3rem 3rem 0;
+    border-top: 1px solid rgba(197,164,106,0.2);
+  }
+  .philo-item:nth-child(even) { padding-left: 3rem; border-left: 1px solid rgba(197,164,106,0.15); }
+  @media(max-width:900px){ .philo-grid { grid-template-columns: 1fr; } .philo-item:nth-child(even) { padding-left:0; border-left:none; } }
+
+
+  /* ── EMOTIONAL QUOTE (old-style dark) ── */
+  .emotional-quote {
+    background: var(--dark);
+    padding: 8rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .eq-deco {
+    position: absolute;
+    top: -4rem; left: 3rem;
+    font-family: var(--serif);
+    font-size: 28rem;
+    color: rgba(197,164,106,0.05);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .emotional-quote blockquote {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.45;
+    max-width: 860px;
+    margin: 0 auto 2rem;
+    letter-spacing: -0.01em;
+    position: relative; z-index: 1;
+  }
+  .emotional-quote blockquote em { color: var(--gold-light); font-style: normal; }
+  .emotional-quote cite {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(197,164,106,0.5);
+    font-style: normal;
+    position: relative; z-index: 1;
+  }
+  /* Remove old fullbleed styles */
+  .fullbleed-quote { display: none; }
+
+.section-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+@media(max-width:900px){.section-inner{padding:0 1.5rem;}}
+.section-label-old {
+  font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold); font-weight: 500;
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem;
+}
+.section-label-old::before { content:''; width:28px; height:1px; background:var(--gold); flex-shrink:0; }
+
+/* PHILOSOPHY */
+.philosophy { padding: 8rem 0; }
+.philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
+.philosophy-left h2 { font-family:var(--serif); font-size:clamp(2rem,3vw,3rem); font-weight:300; line-height:1.1; margin-bottom:1.5rem; }
+.philosophy-left h2 em { font-style:italic; color:var(--gold); }
+.philosophy-left p { font-family:var(--serif); font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.85; }
+.philosophy-items { display:flex; flex-direction:column; }
+.philosophy-item { display:grid; grid-template-columns:3rem 1fr; gap:1.5rem; padding:2rem 0; border-top:1px solid rgba(197,164,106,0.2); }
+.philosophy-item:last-child { border-bottom:1px solid rgba(197,164,106,0.2); }
+.p-num { font-family:var(--serif); font-size:0.85rem; color:var(--gold); padding-top:0.2rem; }
+.p-content h3 { font-family:var(--serif); font-size:1.3rem; font-weight:400; margin-bottom:0.5rem; }
+.p-content p { font-family:var(--serif); font-size:1rem; font-weight:300; color:var(--muted); line-height:1.8; }
+@media(max-width:900px){.philosophy-grid{grid-template-columns:1fr;gap:3rem;}}
+
+/* SERVICES */
+.services { padding:8rem 0; background:var(--dark); }
+.services-header { margin-bottom:4rem; }
+.services-header h2 { font-family:var(--serif); font-size:clamp(2rem,3.5vw,3.5rem); font-weight:300; line-height:1.1; color:var(--cream); }
+.services-header h2 em { font-style:italic; color:var(--gold-light); }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+.service-card { padding:3rem 2.5rem; border:1px solid rgba(197,164,106,0.12); }
+.service-num { font-family:var(--serif); font-size:0.8rem; color:rgba(197,164,106,0.4); display:block; margin-bottom:1.5rem; }
+.service-card h3 { font-family:var(--serif); font-size:1.5rem; font-weight:300; color:var(--cream); margin-bottom:0.75rem; }
+.service-card p { font-family:var(--serif); font-size:0.95rem; font-weight:300; color:rgba(242,237,227,0.45); line-height:1.8; margin-bottom:1.5rem; }
+.service-tag { font-family:var(--sans); font-size:0.58rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(197,164,106,0.3); padding:0.35rem 0.8rem; display:inline-block; }
+@media(max-width:900px){.services-grid{grid-template-columns:1fr;}}
+
+/* ABOUT */
+.about { padding:8rem 0; }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:center; }
+.about-img-wrap { position:relative; }
+.about-img-wrap img { width:100%; height:auto; display:block; }
+.about-accent-box { position:absolute; bottom:-2rem; right:-2rem; width:130px; background:var(--gold); padding:1.5rem; text-align:center; }
+.about-accent-box .num { display:block; font-family:var(--serif); font-size:2rem; font-weight:300; color:var(--dark); line-height:1; }
+.about-accent-box .lbl { display:block; font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--dark); margin-top:0.4rem; }
+.about-right h2 { font-family:var(--serif); font-size:clamp(1.8rem,2.8vw,2.8rem); font-weight:300; line-height:1.15; margin-bottom:0.5rem; }
+.about-right h2 em { font-style:italic; color:var(--gold); }
+.about-name { font-family:var(--sans); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:2rem; display:flex; align-items:center; gap:0.75rem; }
+.about-name::before { content:'—'; color:var(--gold); }
+.about-right p { font-family:var(--serif); font-size:1.05rem; font-weight:300; color:#5A4A42; line-height:1.9; margin-bottom:1.2rem; }
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:3rem;}.about-accent-box{display:none;}}
+
+/* STORIES/PORTFOLIO */
+.stories { padding:8rem 0 5rem; }
+.stories-hdr { margin-bottom:4rem; }
+.stories-hdr h2 { font-family:var(--serif); font-size:clamp(2rem,3.5vw,3.5rem); font-weight:300; line-height:1.1; }
+.stories-hdr h2 em { font-style:italic; color:var(--gold); }
+.stories-intro { font-family:var(--serif); font-size:1.05rem; font-weight:300; font-style:italic; color:var(--muted); margin-top:0.5rem; }
+.story-entry { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; padding:5rem 0; border-top:1px solid rgba(197,164,106,0.15); }
+.story-entry:nth-child(even) { direction:rtl; }
+.story-entry:nth-child(even) > * { direction:ltr; }
+.story-cover-link { display:block; }
+.story-cover { position:relative; overflow:hidden; }
+.story-cover img { width:100%; height:auto; display:block; transition:transform 0.7s ease; }
+.story-cover:hover img { transform:scale(1.04); }
+.story-cover-overlay { position:absolute; inset:0; background:rgba(20,9,3,0.45); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.4s; }
+.story-cover:hover .story-cover-overlay { opacity:1; }
+.story-cover-cta { font-family:var(--sans); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--cream); border:1px solid rgba(242,237,227,0.6); padding:0.7rem 1.5rem; }
+.story-meta { padding-top:1rem; }
+.story-tag { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); font-weight:500; display:block; margin-bottom:0.75rem; }
+.story-meta h3 { font-family:var(--serif); font-size:2rem; font-weight:300; margin-bottom:0.75rem; }
+.story-meta h3 a { color:inherit; text-decoration:none; transition:color 0.3s; }
+.story-meta h3 a:hover { color:var(--gold); }
+.story-desc { font-family:var(--serif); font-size:1rem; font-weight:300; color:var(--muted); line-height:1.8; }
+.story-filmstrip-wrap { overflow:hidden; margin-top:1.5rem; grid-column:1/-1; }
+.story-filmstrip { display:flex; gap:6px; animation:filmScroll 30s linear infinite; width:max-content; }
+.story-filmstrip img { height:120px; width:auto; object-fit:cover; flex-shrink:0; }
+@keyframes filmScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@media(max-width:900px){.story-entry{grid-template-columns:1fr;gap:2rem;}.story-entry:nth-child(even){direction:ltr;}}
+
+/* TESTIMONIALS */
+.testimonials { background:var(--dark); padding:5rem 0; overflow:hidden; }
+.test-inner { display:flex; gap:2rem; animation:testScroll 35s linear infinite; width:max-content; }
+.test-card { background:rgba(255,255,255,0.04); border:1px solid rgba(197,164,106,0.12); padding:2rem 2.5rem; min-width:380px; max-width:380px; flex-shrink:0; }
+.test-text { font-family:var(--serif); font-size:1.05rem; font-weight:300; font-style:italic; color:rgba(242,237,227,0.75); line-height:1.75; margin-bottom:1.2rem; }
+.test-author { font-family:var(--sans); font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); }
+@keyframes testScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* OLD YT SECTION */
+.yt-section-old { padding:8rem 0; background:var(--dark); }
+.yt-header { margin-bottom:3rem; }
+.yt-header h2 { font-family:var(--serif); font-size:clamp(2rem,3.5vw,3.5rem); font-weight:300; line-height:1.1; color:var(--cream); margin-bottom:0.75rem; }
+.yt-header h2 em { font-style:italic; color:var(--gold-light); }
+.yt-header p { font-family:var(--serif); font-size:1.05rem; font-weight:300; font-style:italic; color:rgba(242,237,227,0.45); }
+.yt-more-link { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--sans); font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); border-bottom:1px solid rgba(197,164,106,0.4); padding-bottom:2px; margin-top:1rem; transition:gap 0.3s; text-decoration:none; }
+.yt-more-link:hover { gap:0.9rem; }
+.yt-wrap { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#0A0502; }
+.yt-poster { position:absolute; inset:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.5rem; background:#0A0502; transition:opacity 0.4s; }
+.yt-poster-bg { position:absolute; inset:0; background-image:url('https://img.youtube.com/vi/tF45j7xUAms/mqdefault.jpg'); background-size:cover; background-position:center; opacity:0.6; transition:opacity 0.4s; }
+.yt-poster:hover .yt-poster-bg { opacity:0.75; }
+.yt-poster::before,.yt-poster::after { content:''; position:absolute; left:0; right:0; height:12%; background:rgba(10,5,2,0.85); z-index:1; }
+.yt-poster::before { top:0; } .yt-poster::after { bottom:0; }
+.yt-play-ring { position:relative; z-index:2; width:80px; height:80px; border-radius:50%; border:2px solid rgba(197,164,106,0.6); display:flex; align-items:center; justify-content:center; background:rgba(20,9,3,0.5); backdrop-filter:blur(4px); transition:border-color 0.3s,transform 0.3s; }
+.yt-poster:hover .yt-play-ring { border-color:var(--gold); transform:scale(1.08); }
+.yt-play-icon { width:0; height:0; border-style:solid; border-width:14px 0 14px 26px; border-color:transparent transparent transparent var(--gold); margin-left:4px; }
+.yt-poster-meta { position:relative; z-index:2; text-align:center; }
+.yt-poster-label { font-family:var(--sans); font-size:0.6rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:0.5rem; }
+.yt-poster-title { font-family:var(--serif); font-size:clamp(1.2rem,2.5vw,2rem); font-weight:300; font-style:italic; color:var(--cream); }
+.yt-open-hint { position:relative; z-index:2; font-family:var(--sans); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(242,237,227,0.35); }
+
+/* OLD CONTACT */
+.contact-old { padding:8rem 0; }
+.contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:7rem; align-items:start; }
+.contact-left h2 { font-family:var(--serif); font-size:clamp(2rem,3vw,3rem); font-weight:300; line-height:1.15; margin-bottom:1.2rem; }
+.contact-left h2 em { font-style:italic; color:var(--gold); }
+.contact-left > p { font-family:var(--serif); font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.85; margin-bottom:2.5rem; }
+.contact-info { display:flex; flex-direction:column; gap:1rem; }
+.contact-info a { display:flex; align-items:center; gap:1rem; text-decoration:none; color:var(--dark); transition:color 0.3s; }
+.contact-info a:hover { color:var(--gold); }
+.ci-icon { width:38px; height:38px; border:1px solid rgba(197,164,106,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ci-label { font-family:var(--sans); font-size:0.72rem; display:flex; flex-direction:column; gap:0.15rem; }
+.ci-label span { font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+.form-group { display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.2rem; }
+.form-group label { font-family:var(--sans); font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+.form-group input,.form-group select,.form-group textarea { font-family:var(--serif); font-size:1rem; font-weight:300; color:var(--dark); background:transparent; border:none; border-bottom:1px solid rgba(197,164,106,0.3); padding:0.6rem 0; outline:none; width:100%; transition:border-color 0.3s; }
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); }
+.form-group textarea { resize:none; height:80px; }
+.form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.service-checks { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid rgba(197,164,106,0.25); }
+.check-item { display:flex; align-items:center; gap:0.65rem; padding:0.6rem 0.9rem; cursor:pointer; border-bottom:1px solid rgba(197,164,106,0.12); font-family:var(--serif); font-size:0.95rem; font-weight:300; color:var(--dark); user-select:none; transition:background 0.2s; }
+.check-item:hover { background:rgba(197,164,106,0.07); }
+.check-item input[type="checkbox"] { appearance:none; -webkit-appearance:none; width:14px; height:14px; border:1px solid rgba(197,164,106,0.5); background:transparent; flex-shrink:0; cursor:pointer; position:relative; transition:all 0.2s; }
+.check-item input[type="checkbox"]:checked { background:var(--gold); border-color:var(--gold); }
+.check-item input[type="checkbox"]:checked::after { content:''; position:absolute; left:3px; top:1px; width:5px; height:8px; border:1.5px solid var(--dark); border-top:none; border-left:none; transform:rotate(40deg); }
+.btn-submit { font-family:var(--sans); font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; background:var(--dark); color:var(--cream); border:none; padding:1.1rem 2.5rem; cursor:pointer; margin-top:1.5rem; transition:background 0.3s; display:flex; align-items:center; gap:0.75rem; }
+.btn-submit:hover { background:var(--gold); color:var(--dark); }
+.btn-arrow { transition:transform 0.3s; }
+.btn-submit:hover .btn-arrow { transform:translateX(4px); }
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:3rem;}.form-row-2{grid-template-columns:1fr;}}
+
+/* OLD FOOTER */
+.footer-old { background:var(--dark); padding:5rem 3rem 2.5rem; }
+.footer-top-old { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:4rem; margin-bottom:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(197,164,106,0.1); }
+.footer-brand-old p { font-family:var(--serif); font-size:0.95rem; font-style:italic; color:rgba(242,237,227,0.3); line-height:1.8; margin-top:0.75rem; max-width:280px; }
+.footer-old h4 { font-family:var(--sans); font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem; }
+.footer-old ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+.footer-old ul a { font-family:var(--sans); font-size:0.75rem; letter-spacing:0.06em; color:rgba(242,237,227,0.4); text-decoration:none; transition:color 0.3s; }
+.footer-old ul a:hover { color:var(--gold); }
+.footer-bottom-old { display:flex; justify-content:space-between; align-items:center; }
+.footer-copy-old { font-family:var(--sans); font-size:0.62rem; letter-spacing:0.1em; color:rgba(242,237,227,0.2); }
+@media(max-width:900px){.footer-top-old{grid-template-columns:1fr 1fr;gap:2.5rem;}.footer-old{padding:3rem 1.5rem 2rem;}}
+@media(max-width:600px){.footer-top-old{grid-template-columns:1fr;}}
+</style>
+
+<!-- PHILOSOPHY ITEMS -->
+<section class="philo-items-section" id="philosophy">
   <div class="section-inner">
-    <div class="philosophy-grid">
-      <div class="philosophy-left reveal">
-        <div class="section-label">Our Philosophy</div>
-        <h2>Why One Thousand Tales?</h2>
-        <p>Photography can become a document of human behaviour and family history — not just photographs to look at, but photographs people return to for years.</p>
+    <div class="philo-header reveal">
+      <div class="section-label-old">Our Philosophy</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(2rem,3vw,3rem);font-weight:300;line-height:1.1;margin-bottom:0">Why One Thousand <em style="font-style:italic;color:var(--gold)">Tales?</em></h2>
+    </div>
+    <div class="philo-grid">
+      <div class="philo-item reveal">
+        <span class="p-num">01</span>
+        <div class="p-content"><h3>Observation over Direction</h3><p>We never direct people or create polished emotional scenes. We observe. The best moments happen when no one is watching the camera.</p></div>
       </div>
-      <div class="philosophy-items">
-        <div class="philosophy-item reveal">
-          <span class="p-num">01</span>
-          <div class="p-content">
-            <h3>Observation over Direction</h3>
-            <p>We never direct people or create polished emotional scenes. We observe. The best moments happen when no one is watching the camera.</p>
-          </div>
-        </div>
-        <div class="philosophy-item reveal" style="transition-delay:0.1s">
-          <span class="p-num">02</span>
-          <div class="p-content">
-            <h3>Emotion in its Natural State</h3>
-            <p>Some photographs are emotional. Some are chaotic. Some are funny without trying to be. We don't push emotions — we catch them in the wild.</p>
-          </div>
-        </div>
-        <div class="philosophy-item reveal" style="transition-delay:0.2s">
-          <span class="p-num">03</span>
-          <div class="p-content">
-            <h3>Images That Stay Alive</h3>
-            <p>A gesture in the background. A relationship hidden within the frame. A detail that once felt invisible. Our images continue revealing new things over time.</p>
-          </div>
-        </div>
-        <div class="philosophy-item reveal" style="transition-delay:0.3s">
-          <span class="p-num">04</span>
-          <div class="p-content">
-            <h3>Everyone in the Frame</h3>
-            <p>One Thousand Tales was built around the entire story — where everyone becomes part of the frame, not just the couple at the centre.</p>
-          </div>
-        </div>
+      <div class="philo-item reveal" style="transition-delay:0.1s">
+        <span class="p-num">02</span>
+        <div class="p-content"><h3>Emotion in its Natural State</h3><p>Some photographs are emotional. Some are chaotic. Some are funny without trying to be. We don't push emotions — we catch them in the wild.</p></div>
+      </div>
+      <div class="philo-item reveal" style="transition-delay:0.2s">
+        <span class="p-num">03</span>
+        <div class="p-content"><h3>Images That Stay Alive</h3><p>A gesture in the background. A relationship hidden within the frame. A detail that once felt invisible. Our images continue revealing new things over time.</p></div>
+      </div>
+      <div class="philo-item reveal" style="transition-delay:0.3s">
+        <span class="p-num">04</span>
+        <div class="p-content"><h3>Everyone in the Frame</h3><p>One Thousand Tales was built around the entire story — where everyone becomes part of the frame, not just the couple at the centre.</p></div>
       </div>
     </div>
   </div>
@@ -1911,7 +616,8 @@
 <section class="services" id="services">
   <div class="section-inner">
     <div class="services-header reveal">
-      <h2>Crafted for Stories That<br>Deserve to be <em>Remembered</em></h2>
+      <div class="section-label-old" style="color:var(--gold-light)">What We Do</div>
+      <h2>Crafted for Stories That Deserve to be <em>Remembered</em></h2>
     </div>
     <div class="services-grid reveal" style="transition-delay:0.15s">
       <div class="service-card">
@@ -1928,27 +634,9 @@
       </div>
       <div class="service-card">
         <span class="service-num">03</span>
-        <h3>Wedding Films</h3>
-        <p>Not just videos — but stories in motion. Our films are designed to help you relive your wedding, not just watch it. Cinema for your love story.</p>
-        <span class="service-tag">Cinematic</span>
-      </div>
-      <div class="service-card">
-        <span class="service-num">04</span>
-        <h3>Family Celebrations</h3>
-        <p>Life is made of moments beyond weddings — engagements, birthdays, baby showers, maternity, anniversaries — all with the same care and storytelling intention.</p>
+        <h3>Family & Portraits</h3>
+        <p>From intimate portraits to large family gatherings — we document the people and relationships that make your life what it is.</p>
         <span class="service-tag">All Occasions</span>
-      </div>
-      <div class="service-card">
-        <span class="service-num">05</span>
-        <h3>Portraits</h3>
-        <p>Simple moments. Real expressions. From family portraits to kids photography — we focus on capturing personalities and relationships without forcing moments.</p>
-        <span class="service-tag">Family & Individuals</span>
-      </div>
-      <div class="service-card">
-        <span class="service-num">06</span>
-        <h3>Destination Weddings</h3>
-        <p>Whether it's across the country or anywhere in the world, we travel to document weddings that are meaningful and deeply personal — wherever your story takes you.</p>
-        <span class="service-tag">Worldwide</span>
       </div>
     </div>
   </div>
@@ -1958,60 +646,41 @@
 <section class="about" id="about">
   <div class="section-inner">
     <div class="about-grid">
-      <div class="about-left reveal">
-        <div class="about-img-frame">
-          <img
-            src="./logo.png"
-            alt="Dilip Kumar — Photographer &amp; Storyteller, One Thousand Tales"
-            class="about-dilip-photo"
-          >
-        </div>
-        <div class="about-accent-box">
-          <span class="num">1000+</span>
-          <span class="label">Stories Told</span>
-        </div>
+      <div class="about-img-wrap reveal">
+        <img src="./dilip.jpg" alt="Dilip Kumar" loading="lazy">
+        <div class="about-accent-box"><span class="num">14+</span><span class="lbl">Years</span></div>
       </div>
       <div class="about-right reveal" style="transition-delay:0.15s">
-        <div class="section-label">The Storyteller</div>
-        <h2>Not just a photographer.<br><em>A student of human moments.</em></h2>
-        <div class="about-name">Dilip Kumar</div>
-        <p>I've always been more interested in what happens around the moment than the moment itself. The things people miss. The brief interactions that disappear almost immediately after they happen.</p>
-        <p>What started as a passion for photography slowly became a realisation — that weddings are not just grand celebrations. They are made up of moments that will never exist in the same way again.</p>
-        <p><em>A father's glance. A mother holding back tears. A quiet smile between two people before everything begins.</em></p>
-        <p>Over time, I realized I wasn't interested in directing people. What interested me more was unpredictability — the way emotions shift without warning, the strange humour that appears in serious situations.</p>
-        <a href="#contact" class="btn-primary" style="margin-top:1rem; display:inline-flex;">
-          Work With Me
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
+        <div class="section-label-old">About</div>
+        <h2>Dilip <em>Kumar</em></h2>
+        <div class="about-name">Photographer · Chennai</div>
+        <p>Over 14 years, I've come to believe that the most important photographs happen when nobody is looking at the camera.</p>
+        <p>I'm not interested in directing people. I'm interested in what they reveal unintentionally — the expressions that surface between the planned moments, the relationships that appear in the background of an image that was meant to capture something else.</p>
+        <p>Photography, for me, is a practice of paying attention to things most people walk past.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO / STORIES -->
+<!-- STORIES -->
 <section class="stories" id="portfolio">
   <div class="section-inner">
-    <div class="stories-header reveal">
-      <div class="section-label">Our Stories</div>
-      <h2>Stories We've Been<br>Trusted to <em>Tell</em></h2>
-      <p class="stories-intro">Every wedding is a world of its own. Here are a few.</p>
+    <div class="stories-hdr reveal">
+      <div class="section-label-old">Our Stories</div>
+      <h2>Every wedding is a world of its own. <em>Here are a few.</em></h2>
+      <p class="stories-intro">Every frame holds a feeling. Here are the ones that stayed with us.</p>
     </div>
 
-    <!-- STORY 1 -->
     <article class="story-entry reveal">
-      <a href="#" onclick="openStory('aravind'); return false;" class="story-cover-link">
+      <a href="javascript:void(0)" onclick="event.preventDefault();openStory('aravind');" class="story-cover-link">
         <div class="story-cover">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1650-poster-HR.jpg?w=900&ssl=1" alt="Aravind &amp; Bhavani Wedding" loading="lazy">
-          <div class="story-cover-overlay">
-            <span class="story-cover-cta">View Full Story ↗</span>
-          </div>
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1650-poster-HR.jpg?w=900&ssl=1" alt="Aravind &amp; Bhavani" loading="lazy">
+          <div class="story-cover-overlay"><span class="story-cover-cta">View Full Story ↗</span></div>
         </div>
       </a>
       <div class="story-meta">
         <span class="story-tag">Wedding · Chennai</span>
-        <h3><a href="#" onclick="openStory('aravind'); return false;">Aravind &amp; Bhavani</a></h3>
+        <h3><a href="javascript:void(0)" onclick="event.preventDefault();openStory('aravind');">Aravind &amp; Bhavani</a></h3>
         <p class="story-desc">A Tamil wedding told through quiet glances, joyous rituals, and the hundred small moments between the big ones.</p>
       </div>
       <div class="story-filmstrip-wrap">
@@ -2021,30 +690,23 @@
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-274.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-309.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-552.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-637.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-847.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1272.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1839.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-2063.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-2700.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-3611.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-29.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-113.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
         </div>
       </div>
     </article>
 
-    <!-- STORY 2 -->
     <article class="story-entry reveal">
-      <a href="#" onclick="openStory('santhosh'); return false;" class="story-cover-link">
+      <a href="javascript:void(0)" onclick="event.preventDefault();openStory('santhosh');" class="story-cover-link">
         <div class="story-cover">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/09/Santhosh-Kristiina-Helsinki-Wedding-Dilip-Kumar-Photography-6-scaled.jpg?w=900&ssl=1" alt="Santhosh &amp; Kristiina Wedding" loading="lazy">
-          <div class="story-cover-overlay">
-            <span class="story-cover-cta">View Full Story ↗</span>
-          </div>
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/09/Santhosh-Kristiina-Helsinki-Wedding-Dilip-Kumar-Photography-6-scaled.jpg?w=900&ssl=1" alt="Santhosh &amp; Kristiina" loading="lazy">
+          <div class="story-cover-overlay"><span class="story-cover-cta">View Full Story ↗</span></div>
         </div>
       </a>
       <div class="story-meta">
         <span class="story-tag">Wedding · India &amp; Finland</span>
-        <h3><a href="#" onclick="openStory('santhosh'); return false;">Santhosh &amp; Kristiina</a></h3>
+        <h3><a href="javascript:void(0)" onclick="event.preventDefault();openStory('santhosh');">Santhosh &amp; Kristiina</a></h3>
         <p class="story-desc">Two worlds, one love story. An Indian-Finnish wedding captured across continents with raw honesty and warmth.</p>
       </div>
       <div class="story-filmstrip-wrap">
@@ -2053,29 +715,22 @@
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/11/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-281-1.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-703.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-876.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-1265.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-2259.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-3254.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-3928.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-2960.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Santhosh-Kristiina-4097.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-261-Edit-Finland.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/11/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-281-1.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
         </div>
       </div>
     </article>
 
-    <!-- STORY 3 -->
     <article class="story-entry reveal">
-      <a href="#" onclick="openStory('moments'); return false;" class="story-cover-link">
+      <a href="javascript:void(0)" onclick="event.preventDefault();openStory('moments');" class="story-cover-link">
         <div class="story-cover">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/cover-2.jpg?w=900&ssl=1" alt="Why Moments Matter" loading="lazy">
-          <div class="story-cover-overlay">
-            <span class="story-cover-cta">Read the Story ↗</span>
-          </div>
+          <div class="story-cover-overlay"><span class="story-cover-cta">Read the Story ↗</span></div>
         </div>
       </a>
       <div class="story-meta">
         <span class="story-tag">Essay · Wedding Photography</span>
-        <h3><a href="#" onclick="openStory('moments'); return false;">Why Moments Matter</a></h3>
+        <h3><a href="javascript:void(0)" onclick="event.preventDefault();openStory('moments');">Why Moments Matter</a></h3>
         <p class="story-desc">Why real, unscripted moments are worth more than any posed photograph — and how we chase them at every wedding.</p>
       </div>
       <div class="story-filmstrip-wrap">
@@ -2084,22 +739,11 @@
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/4.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/2.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
           <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/5.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/3.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/6.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
-          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/8.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/9-1-e1699968406964.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
+          <img src="https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/4.jpg?fit=600%2C400&ssl=1" alt="" loading="lazy">
         </div>
       </div>
     </article>
-
-    <!-- More Stories CTA -->
-    <div class="stories-more reveal" style="transition-delay:0.2s">
-      <p class="stories-more-note">Every wedding holds a thousand moments. These are just a few.</p>
-      <a href="blog.html" class="stories-more-btn">
-        More Stories
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-
   </div>
 </section>
 
@@ -2107,57 +751,31 @@
 <section class="testimonials" aria-label="Client testimonials">
   <div style="overflow:hidden;">
     <div class="test-inner" aria-hidden="true">
-      <div class="test-card">
-        <p class="test-text">"Dilip captured moments we didn't even realise were happening. Years later, we still discover new things in our photographs."</p>
-        <span class="test-author">Priya & Arjun · Chennai Wedding</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"He disappeared into the background and still got every single important moment. It felt like having a memory keeper, not a photographer."</p>
-        <span class="test-author">Kavitha & Rajan · Destination Wedding, Goa</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"Our wedding film is something we watch every anniversary. It's not just footage — it tells the whole story of that day."</p>
-        <span class="test-author">Meera & Siddharth · Tamil Brahmin Wedding</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"The photographs of my father during the ceremony — I didn't know those were even taken. That's exactly why One Thousand Tales is different."</p>
-        <span class="test-author">Nithya & Karthik · Reception, Chennai</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"Dilip captured moments we didn't even realise were happening. Years later, we still discover new things in our photographs."</p>
-        <span class="test-author">Priya & Arjun · Chennai Wedding</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"He disappeared into the background and still got every single important moment. It felt like having a memory keeper, not a photographer."</p>
-        <span class="test-author">Kavitha & Rajan · Destination Wedding, Goa</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"Our wedding film is something we watch every anniversary. It's not just footage — it tells the whole story of that day."</p>
-        <span class="test-author">Meera & Siddharth · Tamil Brahmin Wedding</span>
-      </div>
-      <div class="test-card">
-        <p class="test-text">"The photographs of my father during the ceremony — I didn't know those were even taken. That's exactly why One Thousand Tales is different."</p>
-        <span class="test-author">Nithya & Karthik · Reception, Chennai</span>
-      </div>
+      <div class="test-card"><p class="test-text">"Dilip captured moments we didn't even realise were happening. Years later, we still discover new things in our photographs."</p><span class="test-author">Priya &amp; Arjun · Chennai Wedding</span></div>
+      <div class="test-card"><p class="test-text">"He disappeared into the background and still got every single important moment. It felt like having a memory keeper, not a photographer."</p><span class="test-author">Kavitha &amp; Rajan · Destination Wedding, Goa</span></div>
+      <div class="test-card"><p class="test-text">"Our wedding film is something we watch every anniversary. It's not just footage — it tells the whole story of that day."</p><span class="test-author">Meera &amp; Siddharth · Tamil Brahmin Wedding</span></div>
+      <div class="test-card"><p class="test-text">"The photographs of my father during the ceremony — I didn't know those were even taken. That's exactly why One Thousand Tales is different."</p><span class="test-author">Nithya &amp; Karthik · Reception, Chennai</span></div>
+      <div class="test-card"><p class="test-text">"Dilip captured moments we didn't even realise were happening. Years later, we still discover new things in our photographs."</p><span class="test-author">Priya &amp; Arjun · Chennai Wedding</span></div>
+      <div class="test-card"><p class="test-text">"He disappeared into the background and still got every single important moment. It felt like having a memory keeper, not a photographer."</p><span class="test-author">Kavitha &amp; Rajan · Destination Wedding, Goa</span></div>
+      <div class="test-card"><p class="test-text">"Our wedding film is something we watch every anniversary. It's not just footage — it tells the whole story of that day."</p><span class="test-author">Meera &amp; Siddharth · Tamil Brahmin Wedding</span></div>
+      <div class="test-card"><p class="test-text">"The photographs of my father during the ceremony — I didn't know those were even taken. That's exactly why One Thousand Tales is different."</p><span class="test-author">Nithya &amp; Karthik · Reception, Chennai</span></div>
     </div>
   </div>
 </section>
 
 <!-- FILM / YOUTUBE -->
-<section class="yt-section">
+<section class="yt-section-old" id="films">
   <div class="section-inner">
     <div class="yt-header reveal">
-      <div class="section-label">Wedding Films</div>
+      <div class="section-label-old" style="color:var(--gold)">Wedding Films</div>
       <h2>Not just a video.<br><em>A story in motion.</em></h2>
       <p>Watch how we turn a wedding day into something you'll want to relive.</p>
       <a href="https://www.youtube.com/@onethousandtales" target="_blank" rel="noopener" class="yt-more-link">More Films on YouTube ↗</a>
     </div>
     <div class="yt-wrap reveal" style="transition-delay:0.15s" id="ytWrapper">
-      <div class="yt-poster" id="ytPoster" onclick="playYT()" role="button" tabindex="0" aria-label="Watch wedding film on YouTube" onkeydown="if(event.key==='Enter')playYT()">
+      <div class="yt-poster" id="ytPoster" onclick="playYT()" role="button" tabindex="0" aria-label="Watch wedding film on YouTube">
         <div class="yt-poster-bg"></div>
-        <div class="yt-play-ring">
-          <div class="yt-play-icon"></div>
-        </div>
+        <div class="yt-play-ring"><div class="yt-play-icon"></div></div>
         <div class="yt-poster-meta">
           <span class="yt-poster-label">Wedding Film</span>
           <span class="yt-poster-title">One Thousand Tales — by Dilip Kumar</span>
@@ -2168,99 +786,44 @@
   </div>
 </section>
 
-
-
 <!-- CONTACT -->
-<section class="contact" id="contact">
+<section class="contact-old" id="contact">
   <div class="section-inner">
     <div class="contact-grid">
       <div class="contact-left reveal">
-        <div class="section-label">Get in Touch</div>
+        <div class="section-label-old">Get in Touch</div>
         <h2>Tell Us About Your <em>Wedding</em></h2>
         <p>We take on a limited number of weddings each year to ensure every story gets the attention it deserves. If you value storytelling, emotion, and timeless memories — we would love to hear yours.</p>
         <div class="contact-info">
           <a href="tel:+919600066721">
-            <div class="ci-icon">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C5A46A" stroke-width="1.5">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-              </svg>
-            </div>
-            +91 96000 66721
-          </a>
-          <a href="mailto:hello@onethousandtales.net">
-            <div class="ci-icon">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C5A46A" stroke-width="1.5">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </div>
-            hello@onethousandtales.net
-          </a>
-          <a href="#">
-            <div class="ci-icon">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C5A46A" stroke-width="1.5">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            </div>
-            @onethousandtales
+            <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C5A46A" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div class="ci-label">+91 96000 66721<span>Call or WhatsApp</span></div>
           </a>
         </div>
       </div>
       <div class="contact-right reveal" style="transition-delay:0.15s">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Full Name *</label>
-              <input type="text" placeholder="Your name" required>
-            </div>
-            <div class="form-group">
-              <label>Phone Number *</label>
-              <input type="tel" placeholder="+91 XXXXX XXXXX" required>
-            </div>
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-row-2">
+            <div class="form-group"><label>Your Name *</label><input type="text" placeholder="Name" required></div>
+            <div class="form-group"><label>Email *</label><input type="email" placeholder="email@example.com" required></div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group"><label>Phone</label><input type="tel" placeholder="+91"></div>
+            <div class="form-group"><label>Wedding Date</label><input type="date"></div>
           </div>
           <div class="form-group">
-            <label>Email Address *</label>
-            <input type="email" placeholder="hello@example.com" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Services Required *</label>
-              <div class="service-checks" id="serviceChecks">
-                <label class="check-item"><input type="checkbox" name="service" value="Wedding Photography"><span>Wedding Photography</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Couple Shoot"><span>Couple Shoot</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Engagement"><span>Engagement</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Birthday Celebration"><span>Birthday Celebration</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Baby Shower"><span>Baby Shower</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Maternity Shoot"><span>Maternity Shoot</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Family / Kids Photography"><span>Family / Kids Photography</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Portraits"><span>Portraits</span></label>
-                <label class="check-item"><input type="checkbox" name="service" value="Other"><span>Other</span></label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Event Date *</label>
-              <input type="date" required>
+            <label>Services Required</label>
+            <div class="service-checks">
+              <label class="check-item"><input type="checkbox" name="service" value="Wedding Photography"><span>Wedding Photography</span></label>
+              <label class="check-item"><input type="checkbox" name="service" value="Couple Shoot"><span>Couple Shoot</span></label>
+              <label class="check-item"><input type="checkbox" name="service" value="Engagement"><span>Engagement</span></label>
+              <label class="check-item"><input type="checkbox" name="service" value="Family Photography"><span>Family Photography</span></label>
+              <label class="check-item"><input type="checkbox" name="service" value="Portraits"><span>Portraits</span></label>
+              <label class="check-item"><input type="checkbox" name="service" value="Other"><span>Other</span></label>
             </div>
           </div>
-          <div class="form-group">
-            <label>Event Location</label>
-            <input type="text" placeholder="Chennai, Tamil Nadu...">
-          </div>
-          <div class="form-group">
-            <label>Tell Us More</label>
-            <textarea placeholder="Share details about your story..."></textarea>
-          </div>
-          <div class="form-submit">
-            <p class="form-note">We respond within 24 hours.</p>
-            <button type="submit" class="btn-primary">
-              Check Availability
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </div>
+          <div class="form-group"><label>Tell Us More</label><textarea placeholder="Tell us about your wedding day..."></textarea></div>
+          <button type="submit" class="btn-submit">Send Message <span class="btn-arrow">→</span></button>
         </form>
       </div>
     </div>
@@ -2268,396 +831,167 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#" class="footer-logo">
-          <img src="./logo.png" alt="One Thousand Tales Logo" class="footer-logo-img">
-          <div class="footer-logo-text">
-            One Thousand Tales
-            <span>by Dilip Kumar</span>
-          </div>
-        </a>
-        <p>"We don't just deliver photos and videos. We create something you'll hold onto for a lifetime."</p>
+<footer class="footer-old">
+  <div class="footer-top-old">
+    <div class="footer-brand-old">
+      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem">
+        <img src="./logo.png" alt="OTT" style="width:40px;height:40px;object-fit:contain;background:var(--dark);border-radius:4px;padding:4px;">
+        <div style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:rgba(242,237,227,0.8);line-height:1.15">One Thousand Tales<span style="display:block;font-family:var(--sans);font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)">By Dilip Kumar</span></div>
       </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#services">Weddings</a></li>
-          <li><a href="#services">Wedding Films</a></li>
-          <li><a href="#services">Couple Shoots</a></li>
-          <li><a href="#services">Portraits</a></li>
-          <li><a href="#services">Destinations</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="tel:+919600066721">+91 96000 66721</a></li>
-          <li><a href="mailto:hello@onethousandtales.net">hello@onethousandtales.net</a></li>
-          <li><a href="#">Chennai, Tamil Nadu</a></li>
-        </ul>
-      </div>
+      <p>"We don't just deliver photos and videos. We create something you'll hold onto for a lifetime."</p>
     </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 One Thousand Tales · All rights reserved</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="YouTube">yt</a>
-        <a href="#" aria-label="Facebook">fb</a>
-      </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Weddings</a></li>
+        <li><a href="#services">Couple Shoots</a></li>
+        <li><a href="#services">Portraits</a></li>
+        <li><a href="#services">Destinations</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919600066721">+91 96000 66721</a></li>
+        <li><a href="https://www.youtube.com/@onethousandtales" target="_blank">YouTube</a></li>
+        <li><a href="https://onethousandtales.net" target="_blank">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom-old">
+    <span class="footer-copy-old">© 2025 One Thousand Tales · By Dilip Kumar · Chennai</span>
+    <span style="font-family:var(--serif);font-size:0.95rem;color:rgba(242,237,227,0.35)">+91 96000 66721</span>
   </div>
 </footer>
 
-<script>
-
-  // YOUTUBE — opens in new tab (embedding disabled for this video — Error 153)
-  // To enable inline playback: YouTube Studio → Content → Video → More options → Allow embedding
-  function playYT() {
-    window.open('https://www.youtube.com/watch?v=tF45j7xUAms', '_blank', 'noopener');
-  }
-
-  // ═══════════════════════════════════════════════════════
-  // HERO SLIDESHOW — SmugMug auto-loader
-  //
-  // Album key from your SmugMug account: fNTqXw
-  // The slideshow tries to load photos directly from SmugMug.
-  // If that fails (network/CORS), it uses the backup photos below.
-  //
-  // TO UPDATE BACKUP PHOTOS: paste new SmugMug direct URLs below.
-  // Right-click any SmugMug photo → "Copy image address"
-  // ═══════════════════════════════════════════════════════
-  var SMUGMUG_ALBUM_KEY = 'fNTqXw';
-
-  var SLIDESHOW_IMAGES_BACKUP = [
-    'https://photos.smugmug.com/photos/i-3B7wTW4/0/NSsB6FQX7g24pDK2hPP7f2dkg3JXSRMQ7QvzjkmSx/L/i-3B7wTW4-L.jpg',
-    'https://photos.smugmug.com/photos/i-tLR8JBq/0/MQzRLVWqZNfzXj6H62QSjXqWfmpGvWdGS9p5L7GdK/L/i-tLR8JBq-L.jpg',
-    'https://photos.smugmug.com/photos/i-hVDtJTB/0/LNhDPfnFQLx3GzpfCNtWXBvfBst4cn5LhT6PCCMLK/L/i-hVDtJTB-L.jpg',
-    'https://photos.smugmug.com/photos/i-pWQrq6j/0/LTRkjHdTP3H7MPBRFPcdhjZwJ7PbxKjFnhX4w87Rs/L/i-pWQrq6j-L.jpg',
-    'https://photos.smugmug.com/photos/i-MPP9RSW/0/Mjf5R9jxDDrSWdmwzZSrb7cPp6qD7cDgqgvBZ7b68/L/i-MPP9RSW-L.jpg',
-    'https://photos.smugmug.com/photos/i-BD4hNq9/0/MsWPGdXc7hbSKngqZ5KZD4cNFMSXLcZV9TVDL9KqC/L/i-BD4hNq9-L.jpg',
-    'https://photos.smugmug.com/photos/i-Jx64zrx/0/KdCTMD3qFqwvdb6rnMn2N4tQDLjWMZzfFnrDWWP2b/L/i-Jx64zrx-L.jpg',
-    'https://photos.smugmug.com/photos/i-R4z8ZND/0/MKBjLp7GWs7sPBGT87w32C32LZ9ZvVMHsWjLKh7Qw/L/i-R4z8ZND-L.jpg',
-    'https://photos.smugmug.com/photos/i-Vbs5xJ7/0/KDzxMGFntktMxJvBtSfS5HMktmwGdZMbgcn2hwqhS/L/i-Vbs5xJ7-L.jpg'
-  ];
-
-  (function() {
-    var gallery  = document.getElementById('heroGallery');
-    var dotsWrap = document.getElementById('hgDots');
-    var counter  = document.getElementById('hgCounter');
-    var loader   = document.getElementById('hgLoading');
-    var slides = [], current = 0, timer;
-    if (!gallery) return;
-
-    // Build slideshow from an array of image URLs
-    function buildSlideshow(images) {
-      // Clear any existing slides/dots
-      slides = []; dotsWrap.innerHTML = ''; current = 0;
-
-      images.forEach(function(url, i) {
-        var img = document.createElement('img');
-        img.className = 'hg-slide' + (i === 0 ? ' active' : '');
-        img.src = url;
-        img.alt = 'Wedding photograph by One Thousand Tales';
-        img.loading = i < 3 ? 'eager' : 'lazy';
-        gallery.insertBefore(img, dotsWrap);
-        slides.push(img);
-
-        var dot = document.createElement('button');
-        dot.className = 'hg-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-        dot.dataset.idx = i;
-        dot.addEventListener('click', function() { goTo(+this.dataset.idx); reset(); });
-        dotsWrap.appendChild(dot);
-      });
-
-      if (counter) counter.textContent = '1 / ' + slides.length;
-      if (loader) { loader.classList.add('hidden'); setTimeout(function(){ loader.style.display='none'; }, 700); }
-      reset();
-    }
-
-    function goTo(n) {
-      slides[current].classList.remove('active');
-      dotsWrap.children[current].classList.remove('active');
-      current = (n + slides.length) % slides.length;
-      slides[current].classList.add('active');
-      dotsWrap.children[current].classList.add('active');
-      if (counter) counter.textContent = (current + 1) + ' / ' + slides.length;
-    }
-    function reset() { clearInterval(timer); timer = setInterval(function(){ goTo(current + 1); }, 4500); }
-
-    // Try to load images from SmugMug gallery feed (JSONP — no server needed)
-    var loaded = false;
-    var cbName = '_sm_' + Date.now();
-    var smTimeout = setTimeout(function() {
-      if (!loaded) { loaded = true; buildSlideshow(SLIDESHOW_IMAGES_BACKUP); }
-    }, 1500); // fall back after 1.5s if SmugMug doesn't respond
-
-    window[cbName] = function(data) {
-      if (loaded) return;
-      loaded = true;
-      clearTimeout(smTimeout);
-      var urls = [];
-      try {
-        // SmugMug hack feed returns Items array with image URLs
-        if (data && data.Items && data.Items.length) {
-          data.Items.forEach(function(item) {
-            var url = item.XLargeUrl || item.LargeUrl || item.MediumUrl || item.OriginalUrl;
-            if (url) urls.push(url);
-          });
-        }
-      } catch(e) {}
-      buildSlideshow(urls.length >= 3 ? urls : SLIDESHOW_IMAGES_BACKUP);
-      delete window[cbName];
-    };
-
-    var smScript = document.createElement('script');
-    smScript.onerror = function() {
-      if (!loaded) { loaded = true; clearTimeout(smTimeout); buildSlideshow(SLIDESHOW_IMAGES_BACKUP); }
-      delete window[cbName];
-    };
-    smScript.src = 'https://api.smugmug.com/hack/feed.mg?Type=gallery&Data=' +
-                   SMUGMUG_ALBUM_KEY + '&format=json&jsoncallback=' + cbName;
-    document.head.appendChild(smScript);
-
-  })();
-
-  // NAV SCROLL
-  const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // REVEAL ON SCROLL
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-  reveals.forEach(el => observer.observe(el));
-
-  // PORTFOLIO FILTER
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  // FORM SUBMIT
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('[type="submit"]');
-    btn.textContent = '✓ Received!';
-    btn.style.background = '#C5A46A';
-    btn.style.color = '#1A1512';
-    setTimeout(() => {
-      btn.innerHTML = 'Check Availability <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-      btn.style.background = '';
-      btn.style.color = '';
-      e.target.reset();
-    }, 3000);
-  }
-
-  // SMOOTH SCROLL FOR ANCHOR LINKS — robust version
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        const navH = document.getElementById('mainNav').offsetHeight || 80;
-        const top = target.getBoundingClientRect().top + window.scrollY - navH;
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      }
-    });
-  });
-
-
-</script>
-
-<!-- ── STORY MODALS ── -->
+<!-- STORY MODAL -->
 <style>
-  .story-modal-bg {
-    display: none;
-    position: fixed; inset: 0; z-index: 500;
-    background: rgba(20,9,3,0.7);
-    backdrop-filter: blur(4px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .story-modal-bg.open { display: block; }
-  .story-modal {
-    background: #F2EDE3;
-    max-width: 780px;
-    margin: 3vh auto 5vh;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    animation: modalIn 0.35s ease;
-  }
-  @keyframes modalIn { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform:none; } }
-  .story-modal-close {
-    position: sticky; top: 0; z-index: 10;
-    display: flex; justify-content: flex-end;
-    padding: 1rem 1.2rem 0;
-    background: #F2EDE3;
-  }
-  .story-modal-close button {
-    background: none; border: none; cursor: pointer;
-    font-family: 'Jost', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: #8A7D72; display: flex; align-items: center; gap: 0.5rem;
-    padding: 0.4rem 0;
-  }
-  .story-modal-close button:hover { color: #C5A46A; }
-  .story-modal-cover img {
-    width: 100%; height: auto; display: block;
-    max-height: 60vh; object-fit: cover;
-  }
-  .story-modal-body {
-    padding: 2.5rem 2rem 3.5rem;
-  }
-  @media (min-width: 600px) { .story-modal-body { padding: 3rem 3.5rem 4.5rem; } }
-  .story-modal-tag {
-    font-family: 'Jost', sans-serif; font-size: 0.65rem;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: #C5A46A; font-weight: 500; display: block; margin-bottom: 1rem;
-  }
-  .story-modal-body h1 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 300;
-    line-height: 1.05; margin-bottom: 1.2rem; color: #140903;
-  }
-  .story-modal-body .story-intro {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.15rem; font-weight: 300; font-style: italic;
-    color: #8A7D72; line-height: 1.85; margin-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(197,164,106,0.25); padding-bottom: 2rem;
-  }
-  .story-modal-body .story-text {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.1rem; font-weight: 300; line-height: 1.9; color: #140903;
-  }
-  .story-modal-body .story-text p { margin-bottom: 1.5rem; }
-  .story-modal-gallery {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-    margin: 2rem 0;
-  }
-  .story-modal-gallery img {
-    width: 100%; height: 200px; object-fit: cover; display: block;
-  }
-  @media (min-width: 600px) { .story-modal-gallery img { height: 260px; } }
 </style>
-
-<!-- Modal backdrop -->
 <div class="story-modal-bg" id="storyModalBg" onclick="if(event.target===this)closeStory()">
-  <div class="story-modal" id="storyModal">
-    <div class="story-modal-close">
-      <button onclick="closeStory()">← Back to Stories</button>
-    </div>
-    <div class="story-modal-cover" id="storyModalCover"></div>
-    <div class="story-modal-body" id="storyModalBody"></div>
+  <div class="story-modal">
+    <div class="modal-close-bar"><button class="modal-close" onclick="closeStory()">← Back to Stories</button></div>
+    <div class="modal-cover" id="modalCover"></div>
+    <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
 <script>
-  var STORIES = {
-    aravind: {
-      tag: 'Wedding · Chennai',
-      title: 'Aravind &amp; Bhavani',
-      intro: 'A Tamil wedding told through quiet glances, joyous rituals, and the hundred small moments between the big ones.',
-      cover: 'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1650-poster-HR.jpg?w=900&ssl=1',
-      images: [
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-29.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-113.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-274.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-309.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-552.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-847.jpg?fit=600%2C400&ssl=1'
-      ],
-      text: '<p>Aravind and Bhavani\'s wedding was everything a Tamil wedding should be — vivid, layered, chaotic in the best possible way, and full of people who genuinely love each other.</p><p>We spent the day watching rather than directing. The rituals moved at their own pace, the light shifted without warning, and the family filled every corner of the frame with something worth remembering.</p><p>The moments we treasure most from this wedding aren\'t the expected ones. It\'s the glance Bhavani\'s mother gave her daughter before the ceremony began. It\'s Aravind\'s quiet stillness in the middle of the noise. It\'s a cousin laughing at exactly the wrong moment — or maybe exactly the right one.</p><p>That\'s what we came for.</p>'
-    },
-    santhosh: {
-      tag: 'Wedding · India &amp; Finland',
-      title: 'Santhosh &amp; Kristiina',
-      intro: 'Two worlds, one love story. An Indian-Finnish wedding captured across continents with raw honesty and warmth.',
-      cover: 'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/09/Santhosh-Kristiina-Helsinki-Wedding-Dilip-Kumar-Photography-6-scaled.jpg?w=900&ssl=1',
-      images: [
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-261-Edit-Finland.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/11/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-281-1.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-703.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-876.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-1265.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Santhosh-Kristiina-4097.jpg?fit=600%2C400&ssl=1'
-      ],
-      text: '<p>Santhosh and Kristiina\'s wedding is the kind of story that reminds you how big and strange and beautiful the world is. An Indian groom. A Finnish bride. Two families meeting across cultures, trying to understand each other through gestures and warmth when words fell short.</p><p>We photographed part of the story in Finland — long summer light, a stillness in the air that felt borrowed from a different world. And the rest in India, where the noise and colour and chaos of a Chennai wedding filled every room.</p><p>What stayed with us was the look on both families\' faces when they finally found the same moment of joy. That crossing — that\'s what we photograph.</p>'
-    },
-    moments: {
-      tag: 'Essay · Wedding Photography',
-      title: 'Why Moments Matter',
-      intro: 'Why real, unscripted moments are worth more than any posed photograph — and how we chase them at every wedding.',
-      cover: 'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/cover-2.jpg?w=900&ssl=1',
-      images: [
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/9-1-e1699968406964.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/4.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/2.jpg?fit=600%2C400&ssl=1',
-        'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/5.jpg?fit=600%2C400&ssl=1'
-      ],
-      text: '<p>A posed photograph tells you what people wanted to look like. An unposed photograph tells you who they actually are.</p><p>The difference matters — not just aesthetically, but emotionally. Years from now, when you return to your wedding photographs, what you\'ll want to feel is recognition. Not performance.</p><p>The laugh that caught you off guard. The way someone held your hand without thinking. The expression on your parent\'s face that you never actually saw — because you were looking in a different direction when it happened.</p><p>That\'s what documentary wedding photography is. Not better lighting or a bigger camera. A different way of paying attention.</p><p>At One Thousand Tales, we\'ve spent over a decade learning how to disappear into a room — to become part of the furniture — so that life can happen around us the way it actually does. Unpredictable. Funny. Tender. Occasionally chaotic. Always real.</p><p>Those are the photographs worth keeping.</p>'
-    }
-  };
+// ── HERO SLIDESHOW ──
+var heroSlides = document.querySelectorAll('.hero-slide');
+var dotsEl = document.getElementById('heroDots');
+var hCur = 0;
+heroSlides.forEach(function(_, i) {
+  var d = document.createElement('button');
+  d.className = 'hero-dot' + (i===0?' active':'');
+  d.onclick = function(){ goHero(i); resetHero(); };
+  dotsEl.appendChild(d);
+});
+function goHero(n) {
+  heroSlides[hCur].classList.remove('active');
+  dotsEl.children[hCur].classList.remove('active');
+  hCur = (n + heroSlides.length) % heroSlides.length;
+  heroSlides[hCur].classList.add('active');
+  dotsEl.children[hCur].classList.add('active');
+}
+var heroTimer;
+function resetHero() { clearInterval(heroTimer); heroTimer = setInterval(function(){goHero(hCur+1);}, 5000); }
+resetHero();
 
-  function openStory(key) {
-    var s = STORIES[key];
-    if (!s) return;
-    document.getElementById('storyModalCover').innerHTML =
-      '<img src="' + s.cover + '" alt="' + s.title + '" loading="eager">';
-    var gallery = '';
-    if (s.images && s.images.length) {
-      gallery = '<div class="story-modal-gallery">';
-      s.images.forEach(function(url) {
-        gallery += '<img src="' + url + '" alt="" loading="lazy">';
-      });
-      gallery += '</div>';
-    }
-    document.getElementById('storyModalBody').innerHTML =
-      '<span class="story-modal-tag">' + s.tag + '</span>' +
-      '<h1>' + s.title + '</h1>' +
-      '<p class="story-intro">' + s.intro + '</p>' +
-      '<div class="story-text">' + s.text + '</div>' +
-      gallery;
-    var bg = document.getElementById('storyModalBg');
-    bg.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    bg.scrollTop = 0;
-  }
+// ── NAV SCROLL ──
+var nav = document.getElementById('mainNav');
+window.addEventListener('scroll', function() { nav.classList.toggle('scrolled', window.scrollY > 80); });
 
-  function closeStory() {
-    document.getElementById('storyModalBg').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+// ── REVEAL ──
+var revEls = document.querySelectorAll('.reveal');
+var revObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if(e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+revEls.forEach(function(el) { revObs.observe(el); });
 
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeStory();
+// ── YOUTUBE ──
+function playYT() { window.open('https://www.youtube.com/watch?v=tF45j7xUAms','_blank','noopener'); }
+
+// ── FORM ──
+function handleSubmit(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Sent ✓';
+  btn.style.background = 'var(--gold)';
+  btn.style.color = 'var(--dark)';
+  setTimeout(function(){ btn.textContent = 'Send Message →'; btn.style.background=''; btn.style.color=''; e.target.reset(); }, 3000);
+}
+
+// ── SMOOTH NAV LINKS ──
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = this.getAttribute('href').slice(1);
+    var t = document.getElementById(id);
+    if(t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
   });
+});
+
+// ── STORIES MODAL ──
+var STORIES = {
+  aravind: {
+    tag:'Wedding · Chennai', title:'Aravind &amp; Bhavani',
+    intro:'A Tamil wedding told through quiet glances, joyous rituals, and the hundred small moments between the big ones.',
+    cover:'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-1650-poster-HR.jpg?w=900&ssl=1',
+    images:['https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-29.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-113.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-274.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Aravind-Bhavani-DK-309.jpg?fit=600%2C400&ssl=1'],
+    text:'<p>Aravind and Bhavani\'s wedding was everything a Tamil wedding should be — vivid, layered, chaotic in the best possible way, and full of people who genuinely love each other.</p><p>We spent the day watching rather than directing. The rituals moved at their own pace, the light shifted without warning, and the family filled every corner of the frame with something worth remembering.</p><p>The moments we treasure most aren\'t the expected ones. It\'s the glance Bhavani\'s mother gave her daughter before the ceremony began. It\'s Aravind\'s quiet stillness in the middle of the noise.</p>'
+  },
+  santhosh: {
+    tag:'Wedding · India &amp; Finland', title:'Santhosh &amp; Kristiina',
+    intro:'Two worlds, one love story. An Indian-Finnish wedding captured across continents with raw honesty and warmth.',
+    cover:'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/09/Santhosh-Kristiina-Helsinki-Wedding-Dilip-Kumar-Photography-6-scaled.jpg?w=900&ssl=1',
+    images:['https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-261-Edit-Finland.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/11/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-281-1.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Best-candid-documentary-photojournalist-wedding-photographer-photography-chennai-bangalore-hyderabad-mumbai-delhi-703.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2021/10/Santhosh-Kristiina-4097.jpg?fit=600%2C400&ssl=1'],
+    text:'<p>Santhosh and Kristiina\'s wedding is the kind of story that reminds you how big and strange and beautiful the world is. An Indian groom. A Finnish bride. Two families meeting across cultures.</p><p>We photographed part of the story in Finland — long summer light, a stillness in the air that felt borrowed from a different world. And the rest in India, where the noise and colour of a Chennai wedding filled every room.</p>'
+  },
+  moments: {
+    tag:'Essay · Photography', title:'Why Moments Matter',
+    intro:'Why real, unscripted moments are worth more than any posed photograph — and how we chase them at every wedding.',
+    cover:'https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/cover-2.jpg?w=900&ssl=1',
+    images:['https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/9-1-e1699968406964.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/4.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/2.jpg?fit=600%2C400&ssl=1','https://i0.wp.com/onethousandtales.net/wp-content/uploads/2023/11/5.jpg?fit=600%2C400&ssl=1'],
+    text:'<p>A posed photograph tells you what people wanted to look like. An unposed photograph tells you who they actually are.</p><p>Years from now, when you return to your wedding photographs, what you\'ll want to feel is recognition. Not performance. The laugh that caught you off guard. The way someone held your hand without thinking.</p><p>At One Thousand Tales, we\'ve spent over a decade learning how to disappear into a room so that life can happen around us the way it actually does — unpredictable, funny, tender, always real.</p>'
+  }
+};
+
+function openStory(key) {
+  var s = STORIES[key]; if(!s) return;
+  document.getElementById('modalCover').innerHTML = '<img src="'+s.cover+'" alt="'+s.title+'" loading="eager">';
+  var gal = '';
+  if(s.images && s.images.length) { gal='<div class="modal-gallery">'; s.images.forEach(function(u){ gal+='<img src="'+u+'" alt="" loading="lazy">'; }); gal+='</div>'; }
+  document.getElementById('modalBody').innerHTML = '<span class="modal-tag">'+s.tag+'</span><h1>'+s.title+'</h1><p class="modal-intro">'+s.intro+'</p><div class="modal-text">'+s.text+'</div>'+gal;
+  var bg = document.getElementById('storyModalBg');
+  bg.scrollTop = 0;
+  bg.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ bg.scrollTop=0; },10);
+}
+function closeStory() {
+  document.getElementById('storyModalBg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeStory(); });
+
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    var btn = e.target.querySelector('.btn-submit');
+    btn.innerHTML = 'Sent ✓';
+    btn.style.background = 'var(--gold)';
+    btn.style.color = 'var(--dark)';
+    setTimeout(function(){ btn.innerHTML = 'Send Message <span class="btn-arrow">→</span>'; btn.style.background=''; btn.style.color=''; e.target.reset(); }, 3000);
+  }
+
 </script>
 </body>
 </html>
