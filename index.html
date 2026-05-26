@@ -89,7 +89,7 @@ nav.scrolled .nav-cta:hover { background: var(--gold); color: var(--dark); }
 .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
 .hero-h1 { font-family: var(--serif); font-size: clamp(3rem, 6vw, 6rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.01em; }
 .hero-h1 em { font-style: italic; color: var(--gold-light); }
-.hero-sub {  background: var(--dark);  padding: 1rem 0;  padding-left: 2rem;  text-align: left;  font-size: 0.75rem;  letter-spacing: 0.14em;  text-transform: uppercase;  color: var(--gold);}
+.hero-sub { margin: 0; position: absolute; bottom: -40px; left: 0; width: 100%; text-align: center; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(242,237,227,0.6); }
 .hero-nav { position: absolute; bottom: 2rem; right: 3rem; display: flex; gap: 0.75rem; }
 .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(242,237,227,0.35); border: none; cursor: pointer; padding: 0; transition: background 0.3s; }
 .hero-dot.active { background: var(--gold); }
@@ -396,14 +396,11 @@ footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
   <div class="hero-text">
     <div class="hero-eyebrow">Wedding &amp; Family Photography</div>
     <h1 class="hero-h1">We observe <em>life</em><br>as it unfolds.</h1>
+    <p class="hero-sub">Chennai &nbsp;·&nbsp; India &nbsp;·&nbsp; Worldwide</p>
   </div>
   <div class="hero-nav" id="heroDotsDesktop"></div>
   <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
 </section>
-
-<p class="hero-sub">
-  Chennai &nbsp;&nbsp; India &nbsp;&nbsp; Worldwide
-</p>
 <section class="hero hero-mobile" id="heroMobile">
   <div class="hero-slide active" id="hsm0"><img src="https://photos.smugmug.com/photos/i-vmtfNWH/0/X2/i-vmtfNWH-X2.jpg" alt="" loading="eager"></div>
   <div class="hero-slide" id="hsm1"><img src="https://photos.smugmug.com/photos/i-h4Pj6cZ/0/X2/i-h4Pj6cZ-X2.jpg" alt="" loading="eager"></div>
@@ -415,6 +412,7 @@ footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
   <div class="hero-text">
     <div class="hero-eyebrow">Wedding &amp; Family Photography</div>
     <h1 class="hero-h1">We observe <em>life</em><br>as it unfolds.</h1>
+    <p class="hero-sub">Chennai &nbsp;·&nbsp; India &nbsp;·&nbsp; Worldwide</p>
   </div>
   <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
 </section>
@@ -441,8 +439,7 @@ footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
   <!-- Row 1: Big photo left, text right -->
   <div class="ed-row ed-row-1">
     <div class="ed-cell reveal">
-      <img src="https://photos.smugmug.com/photos/i-ngWXNJR/0/X2/i-ngWXNJR-X2.jpg" alt="Wedding photography" loading="lazy">
-    </div>
+      <img src="https://photos.smugmug.com/photos/i-ngWXNJR/0/X2/i-ngWXNJR-X2.jpg" alt="Wedding photography" loading="lazy"></div>
     <div class="ed-text-cell reveal" style="transition-delay:0.15s">
       <div class="ed-label">The Way We See</div>
       <h2>No wedding unfolds in a <em>straight line.</em></h2>
