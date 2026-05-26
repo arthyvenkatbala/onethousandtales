@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8349.jpg">
+  <title>Pranay &amp; Jyotsna — The Wedding Story</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #faf9f7;
+      color: #3a3533;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+    .hero-text {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 2rem;
+    }
+    .hero-text .names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+    .hero-text .amp {
+      font-style: italic;
+      font-weight: 300;
+    }
+    .hero-text .subtitle {
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 1.2rem;
+      opacity: 0.9;
+    }
+    .hero-text .date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3vw, 1.8rem);
+      font-style: italic;
+      font-weight: 300;
+      margin-top: 0.6rem;
+      opacity: 0.95;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      opacity: 0.7;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── Intro ── */
+    .intro {
+      max-width: 680px;
+      margin: 5rem auto 4rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .intro .ornament {
+      color: #c9a96e;
+      font-size: 1.8rem;
+      letter-spacing: 0.5em;
+      margin-bottom: 1.5rem;
+    }
+    .intro p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      line-height: 1.85;
+      color: #5a5250;
+    }
+
+    /* ── Gallery Section ── */
+    .gallery-section {
+      max-width: 1400px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Photo Grid ── */
+    .photo-grid {
+      columns: 4;
+      column-gap: 10px;
+    }
+    @media (max-width: 1100px) { .photo-grid { columns: 3; } }
+    @media (max-width: 720px)  { .photo-grid { columns: 2; } }
+    @media (max-width: 420px)  { .photo-grid { columns: 1; } }
+
+    .photo-item {
+      break-inside: avoid;
+      margin-bottom: 10px;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 3px;
+    }
+    .photo-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+    .photo-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.07);
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10,8,8,0.95);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.7);
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1.2rem; right: 1.5rem;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.75;
+      line-height: 1;
+      background: none;
+      border: none;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.6;
+      background: none;
+      border: none;
+      padding: 1rem;
+      line-height: 1;
+    }
+    .lightbox-nav:hover { opacity: 1; }
+    .lightbox-nav.prev { left: 0.5rem; }
+    .lightbox-nav.next { right: 0.5rem; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(201,169,110,0.3);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #9a8880;
+    }
+    footer .gold { color: #c9a96e; }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8349.jpg" alt="Pranay & Jyotsna Wedding">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <div class="names">Pranay <span class="amp">&amp;</span> Jyotsna</div>
+    <div class="subtitle">The Wedding Story</div>
+  </div>
+  <div class="scroll-hint">↓ &nbsp; Scroll to explore</div>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="ornament">— ♦ —</div>
+  <p>Two hearts, one beautiful beginning. Every glance, every laugh, every quiet moment — captured here as a testament to a love story written in sunlight and celebration.</p>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section">
+  <div class="photo-grid" id="all-photos">
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1021.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1021.jpg" alt="Pranay-Jyotsna-DK-20250215-1021" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1051.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1051.jpg" alt="Pranay-Jyotsna-DK-20250215-1051" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1075.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1075.jpg" alt="Pranay-Jyotsna-DK-20250215-1075" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1106.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1106.jpg" alt="Pranay-Jyotsna-DK-20250215-1106" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1157.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1157.jpg" alt="Pranay-Jyotsna-DK-20250215-1157" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1182.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1182.jpg" alt="Pranay-Jyotsna-DK-20250215-1182" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1230.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1230.jpg" alt="Pranay-Jyotsna-DK-20250215-1230" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1272.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1272.jpg" alt="Pranay-Jyotsna-DK-20250215-1272" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1305.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1305.jpg" alt="Pranay-Jyotsna-DK-20250215-1305" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1330.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1330.jpg" alt="Pranay-Jyotsna-DK-20250215-1330" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1341.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1341.jpg" alt="Pranay-Jyotsna-DK-20250215-1341" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1366.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1366.jpg" alt="Pranay-Jyotsna-DK-20250215-1366" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1377.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1377.jpg" alt="Pranay-Jyotsna-DK-20250215-1377" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1424.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1424.jpg" alt="Pranay-Jyotsna-DK-20250215-1424" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1444.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1444.jpg" alt="Pranay-Jyotsna-DK-20250215-1444" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1527.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1527.jpg" alt="Pranay-Jyotsna-DK-20250215-1527" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1587.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1587.jpg" alt="Pranay-Jyotsna-DK-20250215-1587" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1609.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1609.jpg" alt="Pranay-Jyotsna-DK-20250215-1609" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1637.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1637.jpg" alt="Pranay-Jyotsna-DK-20250215-1637" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1693.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1693.jpg" alt="Pranay-Jyotsna-DK-20250215-1693" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-170.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-170.jpg" alt="Pranay-Jyotsna-DK-20250215-170" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1775.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1775.jpg" alt="Pranay-Jyotsna-DK-20250215-1775" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1795.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1795.jpg" alt="Pranay-Jyotsna-DK-20250215-1795" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1818.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1818.jpg" alt="Pranay-Jyotsna-DK-20250215-1818" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1857.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1857.jpg" alt="Pranay-Jyotsna-DK-20250215-1857" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1907.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1907.jpg" alt="Pranay-Jyotsna-DK-20250215-1907" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1965.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-1965.jpg" alt="Pranay-Jyotsna-DK-20250215-1965" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2050.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2050.jpg" alt="Pranay-Jyotsna-DK-20250215-2050" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2124.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2124.jpg" alt="Pranay-Jyotsna-DK-20250215-2124" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2161.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2161.jpg" alt="Pranay-Jyotsna-DK-20250215-2161" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2270.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2270.jpg" alt="Pranay-Jyotsna-DK-20250215-2270" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2305.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2305.jpg" alt="Pranay-Jyotsna-DK-20250215-2305" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-237.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-237.jpg" alt="Pranay-Jyotsna-DK-20250215-237" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2376.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2376.jpg" alt="Pranay-Jyotsna-DK-20250215-2376" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2452.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2452.jpg" alt="Pranay-Jyotsna-DK-20250215-2452" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2476.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2476.jpg" alt="Pranay-Jyotsna-DK-20250215-2476" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2577.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2577.jpg" alt="Pranay-Jyotsna-DK-20250215-2577" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-26.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-26.jpg" alt="Pranay-Jyotsna-DK-20250215-26" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2623.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2623.jpg" alt="Pranay-Jyotsna-DK-20250215-2623" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2690.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2690.jpg" alt="Pranay-Jyotsna-DK-20250215-2690" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2695.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2695.jpg" alt="Pranay-Jyotsna-DK-20250215-2695" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2800.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2800.jpg" alt="Pranay-Jyotsna-DK-20250215-2800" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2826.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2826.jpg" alt="Pranay-Jyotsna-DK-20250215-2826" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2852.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2852.jpg" alt="Pranay-Jyotsna-DK-20250215-2852" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2914.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2914.jpg" alt="Pranay-Jyotsna-DK-20250215-2914" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2915.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2915.jpg" alt="Pranay-Jyotsna-DK-20250215-2915" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2987.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-2987.jpg" alt="Pranay-Jyotsna-DK-20250215-2987" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-300.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-300.jpg" alt="Pranay-Jyotsna-DK-20250215-300" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3160.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3160.jpg" alt="Pranay-Jyotsna-DK-20250215-3160" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3188.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3188.jpg" alt="Pranay-Jyotsna-DK-20250215-3188" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3197.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3197.jpg" alt="Pranay-Jyotsna-DK-20250215-3197" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3217.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3217.jpg" alt="Pranay-Jyotsna-DK-20250215-3217" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3275.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3275.jpg" alt="Pranay-Jyotsna-DK-20250215-3275" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3310.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3310.jpg" alt="Pranay-Jyotsna-DK-20250215-3310" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3379.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3379.jpg" alt="Pranay-Jyotsna-DK-20250215-3379" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3395.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3395.jpg" alt="Pranay-Jyotsna-DK-20250215-3395" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3413.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3413.jpg" alt="Pranay-Jyotsna-DK-20250215-3413" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3430.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3430.jpg" alt="Pranay-Jyotsna-DK-20250215-3430" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3455.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3455.jpg" alt="Pranay-Jyotsna-DK-20250215-3455" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3493.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3493.jpg" alt="Pranay-Jyotsna-DK-20250215-3493" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3607.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3607.jpg" alt="Pranay-Jyotsna-DK-20250215-3607" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-361.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-361.jpg" alt="Pranay-Jyotsna-DK-20250215-361" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3631.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3631.jpg" alt="Pranay-Jyotsna-DK-20250215-3631" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3694.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3694.jpg" alt="Pranay-Jyotsna-DK-20250215-3694" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3714.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3714.jpg" alt="Pranay-Jyotsna-DK-20250215-3714" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3734.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3734.jpg" alt="Pranay-Jyotsna-DK-20250215-3734" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3750.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3750.jpg" alt="Pranay-Jyotsna-DK-20250215-3750" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3789.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3789.jpg" alt="Pranay-Jyotsna-DK-20250215-3789" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-382.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-382.jpg" alt="Pranay-Jyotsna-DK-20250215-382" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3827.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3827.jpg" alt="Pranay-Jyotsna-DK-20250215-3827" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3847.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3847.jpg" alt="Pranay-Jyotsna-DK-20250215-3847" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3909.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3909.jpg" alt="Pranay-Jyotsna-DK-20250215-3909" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3931.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3931.jpg" alt="Pranay-Jyotsna-DK-20250215-3931" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3944.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-3944.jpg" alt="Pranay-Jyotsna-DK-20250215-3944" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-404.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-404.jpg" alt="Pranay-Jyotsna-DK-20250215-404" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4053.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4053.jpg" alt="Pranay-Jyotsna-DK-20250215-4053" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4105.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4105.jpg" alt="Pranay-Jyotsna-DK-20250215-4105" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4232.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4232.jpg" alt="Pranay-Jyotsna-DK-20250215-4232" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4235.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4235.jpg" alt="Pranay-Jyotsna-DK-20250215-4235" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4318.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4318.jpg" alt="Pranay-Jyotsna-DK-20250215-4318" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4327.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4327.jpg" alt="Pranay-Jyotsna-DK-20250215-4327" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4423.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4423.jpg" alt="Pranay-Jyotsna-DK-20250215-4423" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4532.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4532.jpg" alt="Pranay-Jyotsna-DK-20250215-4532" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4584.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4584.jpg" alt="Pranay-Jyotsna-DK-20250215-4584" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4678.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4678.jpg" alt="Pranay-Jyotsna-DK-20250215-4678" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4699.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4699.jpg" alt="Pranay-Jyotsna-DK-20250215-4699" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4700.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4700.jpg" alt="Pranay-Jyotsna-DK-20250215-4700" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4776.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4776.jpg" alt="Pranay-Jyotsna-DK-20250215-4776" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4835.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4835.jpg" alt="Pranay-Jyotsna-DK-20250215-4835" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4846.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4846.jpg" alt="Pranay-Jyotsna-DK-20250215-4846" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4853.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4853.jpg" alt="Pranay-Jyotsna-DK-20250215-4853" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4878.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4878.jpg" alt="Pranay-Jyotsna-DK-20250215-4878" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4894.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4894.jpg" alt="Pranay-Jyotsna-DK-20250215-4894" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4898.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4898.jpg" alt="Pranay-Jyotsna-DK-20250215-4898" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4935.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4935.jpg" alt="Pranay-Jyotsna-DK-20250215-4935" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4955.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4955.jpg" alt="Pranay-Jyotsna-DK-20250215-4955" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4960.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4960.jpg" alt="Pranay-Jyotsna-DK-20250215-4960" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4966.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4966.jpg" alt="Pranay-Jyotsna-DK-20250215-4966" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4970.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4970.jpg" alt="Pranay-Jyotsna-DK-20250215-4970" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4979.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4979.jpg" alt="Pranay-Jyotsna-DK-20250215-4979" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4995.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-4995.jpg" alt="Pranay-Jyotsna-DK-20250215-4995" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5000.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5000.jpg" alt="Pranay-Jyotsna-DK-20250215-5000" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5012.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5012.jpg" alt="Pranay-Jyotsna-DK-20250215-5012" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5020.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5020.jpg" alt="Pranay-Jyotsna-DK-20250215-5020" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5045.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5045.jpg" alt="Pranay-Jyotsna-DK-20250215-5045" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5057.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5057.jpg" alt="Pranay-Jyotsna-DK-20250215-5057" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5091.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5091.jpg" alt="Pranay-Jyotsna-DK-20250215-5091" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5129.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5129.jpg" alt="Pranay-Jyotsna-DK-20250215-5129" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5134.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5134.jpg" alt="Pranay-Jyotsna-DK-20250215-5134" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5135.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5135.jpg" alt="Pranay-Jyotsna-DK-20250215-5135" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5136.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5136.jpg" alt="Pranay-Jyotsna-DK-20250215-5136" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5152.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5152.jpg" alt="Pranay-Jyotsna-DK-20250215-5152" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5155.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5155.jpg" alt="Pranay-Jyotsna-DK-20250215-5155" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5158.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5158.jpg" alt="Pranay-Jyotsna-DK-20250215-5158" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5159.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5159.jpg" alt="Pranay-Jyotsna-DK-20250215-5159" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5166.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5166.jpg" alt="Pranay-Jyotsna-DK-20250215-5166" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-517.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-517.jpg" alt="Pranay-Jyotsna-DK-20250215-517" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5202.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5202.jpg" alt="Pranay-Jyotsna-DK-20250215-5202" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5245.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5245.jpg" alt="Pranay-Jyotsna-DK-20250215-5245" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-526.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-526.jpg" alt="Pranay-Jyotsna-DK-20250215-526" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5270.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5270.jpg" alt="Pranay-Jyotsna-DK-20250215-5270" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5289.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5289.jpg" alt="Pranay-Jyotsna-DK-20250215-5289" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5298.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5298.jpg" alt="Pranay-Jyotsna-DK-20250215-5298" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5310.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5310.jpg" alt="Pranay-Jyotsna-DK-20250215-5310" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5374.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5374.jpg" alt="Pranay-Jyotsna-DK-20250215-5374" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5394.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5394.jpg" alt="Pranay-Jyotsna-DK-20250215-5394" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-544.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-544.jpg" alt="Pranay-Jyotsna-DK-20250215-544" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5458.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5458.jpg" alt="Pranay-Jyotsna-DK-20250215-5458" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5466.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5466.jpg" alt="Pranay-Jyotsna-DK-20250215-5466" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-549.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-549.jpg" alt="Pranay-Jyotsna-DK-20250215-549" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5501.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5501.jpg" alt="Pranay-Jyotsna-DK-20250215-5501" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5628.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5628.jpg" alt="Pranay-Jyotsna-DK-20250215-5628" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5643.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5643.jpg" alt="Pranay-Jyotsna-DK-20250215-5643" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5740.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5740.jpg" alt="Pranay-Jyotsna-DK-20250215-5740" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-578.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-578.jpg" alt="Pranay-Jyotsna-DK-20250215-578" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5846.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5846.jpg" alt="Pranay-Jyotsna-DK-20250215-5846" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5866.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5866.jpg" alt="Pranay-Jyotsna-DK-20250215-5866" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5892.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5892.jpg" alt="Pranay-Jyotsna-DK-20250215-5892" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5913.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5913.jpg" alt="Pranay-Jyotsna-DK-20250215-5913" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5953.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5953.jpg" alt="Pranay-Jyotsna-DK-20250215-5953" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5964.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-5964.jpg" alt="Pranay-Jyotsna-DK-20250215-5964" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-608.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-608.jpg" alt="Pranay-Jyotsna-DK-20250215-608" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-613.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-613.jpg" alt="Pranay-Jyotsna-DK-20250215-613" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-662.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-662.jpg" alt="Pranay-Jyotsna-DK-20250215-662" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-670.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-670.jpg" alt="Pranay-Jyotsna-DK-20250215-670" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-84.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-84.jpg" alt="Pranay-Jyotsna-DK-20250215-84" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-846.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-846.jpg" alt="Pranay-Jyotsna-DK-20250215-846" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-911.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250215-911.jpg" alt="Pranay-Jyotsna-DK-20250215-911" loading="lazy"></div>
+
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6073.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6073.jpg" alt="Pranay-Jyotsna-DK-20250216-6073" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6112.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6112.jpg" alt="Pranay-Jyotsna-DK-20250216-6112" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6129.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6129.jpg" alt="Pranay-Jyotsna-DK-20250216-6129" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6149.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6149.jpg" alt="Pranay-Jyotsna-DK-20250216-6149" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6187.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6187.jpg" alt="Pranay-Jyotsna-DK-20250216-6187" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6213.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6213.jpg" alt="Pranay-Jyotsna-DK-20250216-6213" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6233.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6233.jpg" alt="Pranay-Jyotsna-DK-20250216-6233" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6284.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6284.jpg" alt="Pranay-Jyotsna-DK-20250216-6284" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6303.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6303.jpg" alt="Pranay-Jyotsna-DK-20250216-6303" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6319.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6319.jpg" alt="Pranay-Jyotsna-DK-20250216-6319" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6341.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6341.jpg" alt="Pranay-Jyotsna-DK-20250216-6341" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6351.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6351.jpg" alt="Pranay-Jyotsna-DK-20250216-6351" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6412.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6412.jpg" alt="Pranay-Jyotsna-DK-20250216-6412" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6497.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6497.jpg" alt="Pranay-Jyotsna-DK-20250216-6497" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6506.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6506.jpg" alt="Pranay-Jyotsna-DK-20250216-6506" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6526.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6526.jpg" alt="Pranay-Jyotsna-DK-20250216-6526" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6558.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6558.jpg" alt="Pranay-Jyotsna-DK-20250216-6558" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6567.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6567.jpg" alt="Pranay-Jyotsna-DK-20250216-6567" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6585.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6585.jpg" alt="Pranay-Jyotsna-DK-20250216-6585" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6607.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6607.jpg" alt="Pranay-Jyotsna-DK-20250216-6607" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6706.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6706.jpg" alt="Pranay-Jyotsna-DK-20250216-6706" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6710.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6710.jpg" alt="Pranay-Jyotsna-DK-20250216-6710" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6726.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6726.jpg" alt="Pranay-Jyotsna-DK-20250216-6726" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6731.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6731.jpg" alt="Pranay-Jyotsna-DK-20250216-6731" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6758.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6758.jpg" alt="Pranay-Jyotsna-DK-20250216-6758" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6768.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6768.jpg" alt="Pranay-Jyotsna-DK-20250216-6768" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6785.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6785.jpg" alt="Pranay-Jyotsna-DK-20250216-6785" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6805.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6805.jpg" alt="Pranay-Jyotsna-DK-20250216-6805" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6817.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6817.jpg" alt="Pranay-Jyotsna-DK-20250216-6817" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6880.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6880.jpg" alt="Pranay-Jyotsna-DK-20250216-6880" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6923.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6923.jpg" alt="Pranay-Jyotsna-DK-20250216-6923" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6942.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6942.jpg" alt="Pranay-Jyotsna-DK-20250216-6942" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6959.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-6959.jpg" alt="Pranay-Jyotsna-DK-20250216-6959" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7050.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7050.jpg" alt="Pranay-Jyotsna-DK-20250216-7050" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7078.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7078.jpg" alt="Pranay-Jyotsna-DK-20250216-7078" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7109.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7109.jpg" alt="Pranay-Jyotsna-DK-20250216-7109" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7142.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7142.jpg" alt="Pranay-Jyotsna-DK-20250216-7142" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7188.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7188.jpg" alt="Pranay-Jyotsna-DK-20250216-7188" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7269.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7269.jpg" alt="Pranay-Jyotsna-DK-20250216-7269" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7292.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7292.jpg" alt="Pranay-Jyotsna-DK-20250216-7292" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7297.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7297.jpg" alt="Pranay-Jyotsna-DK-20250216-7297" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7392.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7392.jpg" alt="Pranay-Jyotsna-DK-20250216-7392" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7399.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7399.jpg" alt="Pranay-Jyotsna-DK-20250216-7399" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7402.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7402.jpg" alt="Pranay-Jyotsna-DK-20250216-7402" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7406.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7406.jpg" alt="Pranay-Jyotsna-DK-20250216-7406" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7423.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7423.jpg" alt="Pranay-Jyotsna-DK-20250216-7423" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7431.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7431.jpg" alt="Pranay-Jyotsna-DK-20250216-7431" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7471.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7471.jpg" alt="Pranay-Jyotsna-DK-20250216-7471" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7510.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7510.jpg" alt="Pranay-Jyotsna-DK-20250216-7510" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7522.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7522.jpg" alt="Pranay-Jyotsna-DK-20250216-7522" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7534.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7534.jpg" alt="Pranay-Jyotsna-DK-20250216-7534" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7579.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7579.jpg" alt="Pranay-Jyotsna-DK-20250216-7579" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7589.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7589.jpg" alt="Pranay-Jyotsna-DK-20250216-7589" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7615.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7615.jpg" alt="Pranay-Jyotsna-DK-20250216-7615" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7625.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7625.jpg" alt="Pranay-Jyotsna-DK-20250216-7625" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7657.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7657.jpg" alt="Pranay-Jyotsna-DK-20250216-7657" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7693.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7693.jpg" alt="Pranay-Jyotsna-DK-20250216-7693" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7710.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7710.jpg" alt="Pranay-Jyotsna-DK-20250216-7710" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7726.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7726.jpg" alt="Pranay-Jyotsna-DK-20250216-7726" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7730.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7730.jpg" alt="Pranay-Jyotsna-DK-20250216-7730" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7746.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7746.jpg" alt="Pranay-Jyotsna-DK-20250216-7746" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7779.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7779.jpg" alt="Pranay-Jyotsna-DK-20250216-7779" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7785.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7785.jpg" alt="Pranay-Jyotsna-DK-20250216-7785" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7801.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7801.jpg" alt="Pranay-Jyotsna-DK-20250216-7801" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7814.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7814.jpg" alt="Pranay-Jyotsna-DK-20250216-7814" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7842.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7842.jpg" alt="Pranay-Jyotsna-DK-20250216-7842" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7854.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7854.jpg" alt="Pranay-Jyotsna-DK-20250216-7854" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7872.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7872.jpg" alt="Pranay-Jyotsna-DK-20250216-7872" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7906.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7906.jpg" alt="Pranay-Jyotsna-DK-20250216-7906" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7919.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7919.jpg" alt="Pranay-Jyotsna-DK-20250216-7919" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7930.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7930.jpg" alt="Pranay-Jyotsna-DK-20250216-7930" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7963.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7963.jpg" alt="Pranay-Jyotsna-DK-20250216-7963" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7968.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7968.jpg" alt="Pranay-Jyotsna-DK-20250216-7968" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7973.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7973.jpg" alt="Pranay-Jyotsna-DK-20250216-7973" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7976.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7976.jpg" alt="Pranay-Jyotsna-DK-20250216-7976" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7988.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-7988.jpg" alt="Pranay-Jyotsna-DK-20250216-7988" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8014.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8014.jpg" alt="Pranay-Jyotsna-DK-20250216-8014" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8030.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8030.jpg" alt="Pranay-Jyotsna-DK-20250216-8030" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8057.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8057.jpg" alt="Pranay-Jyotsna-DK-20250216-8057" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8121.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8121.jpg" alt="Pranay-Jyotsna-DK-20250216-8121" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8149.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8149.jpg" alt="Pranay-Jyotsna-DK-20250216-8149" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8167.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8167.jpg" alt="Pranay-Jyotsna-DK-20250216-8167" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8185.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8185.jpg" alt="Pranay-Jyotsna-DK-20250216-8185" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8221.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8221.jpg" alt="Pranay-Jyotsna-DK-20250216-8221" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8244.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8244.jpg" alt="Pranay-Jyotsna-DK-20250216-8244" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8263.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8263.jpg" alt="Pranay-Jyotsna-DK-20250216-8263" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8275.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8275.jpg" alt="Pranay-Jyotsna-DK-20250216-8275" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8276.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8276.jpg" alt="Pranay-Jyotsna-DK-20250216-8276" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8284.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8284.jpg" alt="Pranay-Jyotsna-DK-20250216-8284" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8339.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8339.jpg" alt="Pranay-Jyotsna-DK-20250216-8339" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8349.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8349.jpg" alt="Pranay-Jyotsna-DK-20250216-8349" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8367.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8367.jpg" alt="Pranay-Jyotsna-DK-20250216-8367" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8381.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8381.jpg" alt="Pranay-Jyotsna-DK-20250216-8381" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8414.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8414.jpg" alt="Pranay-Jyotsna-DK-20250216-8414" loading="lazy"></div>
+        <div class="photo-item" onclick="openLightbox('file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8445.jpg')"><img src="file:///C:/Users/Dilip-PC/Desktop/Website%20OTT/Blog%20pictures/The%20wedding%20story/Pranay-Jyotsna-DK-20250216-8445.jpg" alt="Pranay-Jyotsna-DK-20250216-8445" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="gold">Pranay &amp; Jyotsna</span> — Forever begins here ♦ February 2025
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav prev" onclick="navigateLightbox(-1)">&#8592;</button>
+  <img src="" alt="" id="lightbox-img">
+  <button class="lightbox-nav next" onclick="navigateLightbox(1)">&#8594;</button>
+</div>
+
+<script>
+  // Build full list of all image srcs in order
+  const allImages = Array.from(document.querySelectorAll('.photo-item img')).map(img => img.src);
+  let currentIdx = 0;
+
+  function openLightbox(src) {
+    currentIdx = allImages.findIndex(s => s === src);
+    if (currentIdx === -1) currentIdx = 0;
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox-img').src = '';
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function navigateLightbox(dir) {
+    currentIdx = (currentIdx + dir + allImages.length) % allImages.length;
+    document.getElementById('lightbox-img').src = allImages[currentIdx];
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  });
+</script>
+</body>
+</html>
