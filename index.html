@@ -452,7 +452,7 @@ footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
       <div class="ed-label">The Way We See</div>
       <h2>No wedding unfolds in a <em>straight line.</em></h2>
       <p>A distracted child. Someone laughing in the background. A fleeting glance nobody else noticed. These are the moments we live for.</p>
-      <span class="ed-link" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">View Our Stories →</span>
+      <span class="ed-link" onclick="document.getElementById('stories').scrollIntoView({behavior:'smooth'})">View Our Stories →</span>
     </div>
   </div>
 
@@ -869,7 +869,7 @@ footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
 </section>
 
 <!-- STORIES -->
-<section id="portfolio" style="background:var(--cream);padding:7rem 0 5rem;">
+<section id="stories" style="background:var(--cream);padding:7rem 0 5rem;">
   <div style="max-width:1200px;margin:0 auto;padding:0 3rem;">
     <div class="reveal" style="margin-bottom:4rem;">
       <div class="section-label-old" style="margin-bottom:0.8rem">Our Stories</div>
@@ -1101,7 +1101,7 @@ footer { background: var(--dark); padding: 4rem 3rem 2.5rem; }
 function initHeroSlideshow(heroSection) {
   var heroSlides = heroSection.querySelectorAll('.hero-slide');
   var dotsEl = heroSection.querySelector('.hero-nav');
-  if (!heroSlides.length || !dotsEl) {
+  if (!heroSlides.length) {
     return;
   }
 
@@ -1110,15 +1110,21 @@ function initHeroSlideshow(heroSection) {
     var d = document.createElement('button');
     d.className = 'hero-dot' + (i === 0 ? ' active' : '');
     d.onclick = function() { goHero(i); resetHero(); };
-    dotsEl.appendChild(d);
+    if (dotsEl) {
+  dotsEl.appendChild(d);
+}
   });
 
   function goHero(n) {
     heroSlides[hCur].classList.remove('active');
-    dotsEl.children[hCur].classList.remove('active');
+    if (dotsEl && dotsEl.children[hCur]) {
+  dotsEl.children[hCur].classList.remove('active');
+}
     hCur = (n + heroSlides.length) % heroSlides.length;
     heroSlides[hCur].classList.add('active');
-    dotsEl.children[hCur].classList.add('active');
+    if (dotsEl && dotsEl.children[hCur]) {
+  dotsEl.children[hCur].classList.add('active');
+}
   }
 
   var heroTimer;
