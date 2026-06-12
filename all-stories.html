@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7D8CV5XJ3P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7D8CV5XJ3P');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Wedding Stories — One Thousand Tales</title>
+  <meta name="description" content="Browse all wedding stories by One Thousand Tales — candid documentary wedding photography by Dilip Kumar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F2EDE3;
+      --dark: #140903;
+      --gold: #C5A46A;
+      --muted: #8A7D72;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--dark); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(197,164,106,0.2);
+    }
+    .nav-back {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.3s;
+    }
+    .nav-back:hover { color: var(--gold); }
+    .nav-brand {
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.06em;
+    }
+    .nav-brand em { font-style: italic; color: var(--gold); }
+    @media (max-width: 600px) { nav { padding: 1rem 1.5rem; } }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid rgba(197,164,106,0.15);
+    }
+    .page-header .label {
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem; display: block;
+    }
+    .page-header h1 {
+      font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300; line-height: 1.1;
+    }
+    .page-header h1 em { font-style: italic; color: var(--gold); }
+    .page-header p {
+      font-family: var(--serif); font-size: 1.2rem; font-weight: 300;
+      font-style: italic; color: var(--muted);
+      margin-top: 1.2rem; max-width: 540px; margin-left: auto; margin-right: auto;
+      line-height: 1.7;
+    }
+
+    /* ── STORIES GRID ── */
+    .stories-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 5rem 3rem 7rem;
+    }
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2.5rem;
+    }
+    @media (max-width: 960px) { .stories-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 2rem; } }
+    @media (max-width: 580px)  { .stories-grid { grid-template-columns: 1fr; } .stories-wrap { padding: 3rem 1.5rem 5rem; } }
+
+    /* ── STORY CARD ── */
+    .story-card { display: flex; flex-direction: column; }
+    .card-thumb {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4; margin-bottom: 1.4rem;
+      background: #ddd6cc;
+    }
+    .card-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .story-card:hover .card-thumb img { transform: scale(1.05); }
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: rgba(20,9,3,0.45);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .story-card:hover .card-overlay { opacity: 1; }
+    .card-overlay span {
+      font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #fff;
+      border: 1px solid rgba(255,255,255,0.6); padding: 0.65rem 1.4rem;
+    }
+    .card-tag {
+      font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: 0.5rem;
+    }
+    .card-title {
+      font-family: var(--serif); font-size: 1.7rem; font-weight: 300;
+      line-height: 1.15; margin-bottom: 0.6rem;
+      transition: color 0.3s;
+    }
+    .story-card:hover .card-title { color: var(--gold); }
+    .card-desc {
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 300;
+      font-style: italic; color: var(--muted); line-height: 1.6;
+      flex: 1;
+    }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem; font-size: 0.6rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold);
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: border-color 0.3s, gap 0.3s; width: fit-content;
+    }
+    .story-card:hover .card-link { border-color: var(--gold); gap: 0.85rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); padding: 2.5rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer span { font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(242,237,227,0.25); }
+    footer a { font-family: var(--serif); font-size: 1rem; color: rgba(242,237,227,0.4); transition: color 0.3s; }
+    footer a:hover { color: var(--gold); }
+    @media (max-width: 600px) { footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; } }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+  <span class="nav-brand">One Thousand <em>Tales</em></span>
+</nav>
+
+<!-- Header -->
+<header class="page-header">
+  <span class="label">Wedding Stories</span>
+  <h1>Every love story is <em>different.</em></h1>
+  <p>A curated collection of weddings photographed by Dilip Kumar — documentary, candid, and quietly unforgettable.</p>
+</header>
+
+<!-- Stories Grid -->
+<main class="stories-wrap">
+  <div class="stories-grid">
+
+    <!-- Story 1: Pranay & Jyotsna -->
+    <a href="blogs/wedding-story.html" class="story-card">
+      <div class="card-thumb">
+        <img src="Blog pictures/The wedding story/Pranay-Jyotsna-DK-20250216-8349.jpg" alt="Pranay &amp; Jyotsna" loading="lazy">
+        <div class="card-overlay"><span>Open Story ↗</span></div>
+      </div>
+      <span class="card-tag">Wedding · Local Story</span>
+      <h2 class="card-title">Pranay &amp; Jyotsna</h2>
+      <p class="card-desc">Not every wedding is remembered for grand moments alone. Often, it’s the quiet in-between — fleeting glances, trembling hands, shared laughter, and the warmth of people gathered close — that lingers long after the day has passed. These photographs are a reflection of those emotions: honest, imperfect, and deeply human.</p>
+      <span class="card-link">Read Story →</span>
+    </a>
+
+    <!-- Story 2: Kamya & Krishna -->
+    <a href="blogs/kamya-krishna-wedding-blog.html" class="story-card">
+      <div class="card-thumb">
+        <img src="Blog pictures/Kamya Krishna/Krishna-Kamya-OTT-DK-20230503-1024.jpg" alt="Kamya &amp; Krishna" loading="lazy">
+        <div class="card-overlay"><span>Open Story ↗</span></div>
+      </div>
+      <span class="card-tag">Wedding · Local Story</span>
+      <h2 class="card-title">Kamya &amp; Krishna</h2>
+      <p class="card-desc">Kamya and Krishna's wedding unfolded like a celebration that never lost its softness. Between laughter echoing through crowded rooms and quiet pauses shared away from the noise, their story carried an ease that felt deeply their own. Every frame here holds a piece of that warmth — joyful, intimate, and beautifully alive.</p>
+      <span class="card-link">Read Story →</span>
+    </a>
+
+    <!-- Story 3: Kowshik & Pallavi -->
+    <a href="blogs/kowshik-pallavi-wedding-blog.html" class="story-card">
+      <div class="card-thumb">
+        <img src="Blog pictures/Kowshik pallavi/Best candid documentary photojournalist wedding photographer photography chennai bangalore hyderabad mumbai delhi -19153312.jpg" alt="Kowshik &amp; Pallavi" loading="lazy">
+        <div class="card-overlay"><span>Open Story ↗</span></div>
+      </div>
+      <span class="card-tag">Wedding · Local Story</span>
+      <h2 class="card-title">Kowshik &amp; Pallavi</h2>
+      <p class="card-desc">Some stories feel timeless the moment they are remembered. Kowshik and Pallavi’s wedding unfolded in quiet gestures, lingering glances, and moments that spoke more through silence than celebration. Every moment carried a sense of calm intimacy — honest, unguarded, and deeply personal — capturing not just how the day looked, but how it felt to be there beside them.</p>
+      <span class="card-link">Read Story →</span>
+    </a>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <span>© 2025 One Thousand Tales · By Dilip Kumar · Chennai</span>
+  <a href="tel:+9196000666721">96000 666721</a>
+</footer>
+
+</body>
+</html>
