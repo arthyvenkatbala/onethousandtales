@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7D8CV5XJ3P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7D8CV5XJ3P');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="https://photos.smugmug.com/photos/i-DTmTXC3/0/X2/i-DTmTXC3.jpg">
+  <title>Kowshik &amp; Pallavi — The Wedding Story</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #faf9f7;
+      color: #3a3533;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero img.bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+    .hero-text {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 2rem;
+    }
+    .hero-text .names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+    .hero-text .amp {
+      font-style: italic;
+    }
+    .hero-text .subtitle {
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 1.2rem;
+      opacity: 0.9;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      opacity: 0.7;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── Intro ── */
+    .intro {
+      max-width: 680px;
+      margin: 5rem auto 4rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .intro .ornament {
+      color: #c9a96e;
+      font-size: 1.8rem;
+      letter-spacing: 0.5em;
+      margin-bottom: 1.5rem;
+    }
+    .intro p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      line-height: 1.85;
+      color: #5a5250;
+    }
+
+    /* ── Gallery (Editorial — story order, consecutive portraits paired) ── */
+    .gallery-section {
+      max-width: 1300px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+    }
+    .photo-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .photo-item {
+      overflow: hidden;
+      border-radius: 3px;
+      cursor: pointer;
+      background: #ece8e2;
+    }
+    .photo-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+    .photo-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.06);
+    }
+
+    /* Landscapes are direct children of the grid — full width */
+    .photo-grid > .photo-item { width: 100%; }
+
+    /* Two consecutive portraits — side by side */
+    .portrait-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* A single portrait between landscapes — centered, sized so it doesn't dominate */
+    .portrait-row.solo {
+      display: flex;
+      justify-content: center;
+    }
+    .portrait-row.solo .photo-item {
+      width: 55%;
+      max-width: 620px;
+    }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+      .gallery-section { padding: 0 1.5rem; }
+      .photo-grid { gap: 18px; }
+      .portrait-row { gap: 18px; }
+      .portrait-row.solo .photo-item { width: 72%; }
+    }
+
+    /* Mobile: everything single column */
+    @media (max-width: 640px) {
+      .photo-grid { gap: 14px; }
+      .portrait-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .portrait-row.solo .photo-item { width: 100%; }
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10,8,8,0.95);
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.7);
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1.2rem; right: 1.5rem;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.75;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.6;
+      background: none;
+      border: none;
+      padding: 1rem;
+      line-height: 1;
+    }
+    .lightbox-nav:hover { opacity: 1; }
+    .lightbox-nav.prev { left: 0.5rem; }
+    .lightbox-nav.next { right: 0.5rem; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(201,169,110,0.3);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #9a8880;
+    }
+    footer .gold { color: #c9a96e; }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <img class="bg" src="https://photos.smugmug.com/photos/i-DTmTXC3/0/X2/i-DTmTXC3.jpg" alt="Kowshik &amp; Pallavi Wedding">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <div class="names">Kowshik <span class="amp">&amp;</span> Pallavi</div>
+    <div class="subtitle">The Wedding Story</div>
+  </div>
+  <div class="scroll-hint">&#8595; &nbsp; Scroll to explore</div>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="ornament">— ♦ —</div>
+  <p>Some stories feel timeless the moment they are remembered. Kowshik and Pallavi’s wedding unfolded in quiet gestures, lingering glances, and moments that spoke more through silence than celebration. Every moment carried a sense of calm intimacy — honest, unguarded, and deeply personal — capturing not just how the day looked, but how it felt to be there beside them.</p>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section">
+  <div class="photo-grid">
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-NnX9dMj/0/X2/i-NnX9dMj.jpg')"><img src="https://photos.smugmug.com/photos/i-NnX9dMj/0/X2/i-NnX9dMj.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-7VNbCfV/0/X2/i-7VNbCfV.jpg')"><img src="https://photos.smugmug.com/photos/i-7VNbCfV/0/X2/i-7VNbCfV.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-CVnB4pj/0/X2/i-CVnB4pj.jpg')"><img src="https://photos.smugmug.com/photos/i-CVnB4pj/0/X2/i-CVnB4pj.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-Wr68XjD/0/X2/i-Wr68XjD.jpg')"><img src="https://photos.smugmug.com/photos/i-Wr68XjD/0/X2/i-Wr68XjD.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-BzGMp7K/0/X2/i-BzGMp7K.jpg')"><img src="https://photos.smugmug.com/photos/i-BzGMp7K/0/X2/i-BzGMp7K.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-jdqThCr/0/X2/i-jdqThCr.jpg')"><img src="https://photos.smugmug.com/photos/i-jdqThCr/0/X2/i-jdqThCr.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-5Xph9dC/0/X2/i-5Xph9dC.jpg')"><img src="https://photos.smugmug.com/photos/i-5Xph9dC/0/X2/i-5Xph9dC.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-xS6qmVF/0/X2/i-xS6qmVF.jpg')"><img src="https://photos.smugmug.com/photos/i-xS6qmVF/0/X2/i-xS6qmVF.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-6WN3G7g/0/X2/i-6WN3G7g.jpg')"><img src="https://photos.smugmug.com/photos/i-6WN3G7g/0/X2/i-6WN3G7g.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-cbNgpCD/0/X2/i-cbNgpCD.jpg')"><img src="https://photos.smugmug.com/photos/i-cbNgpCD/0/X2/i-cbNgpCD.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-nKqRqz2/0/X2/i-nKqRqz2.jpg')"><img src="https://photos.smugmug.com/photos/i-nKqRqz2/0/X2/i-nKqRqz2.jpg" alt="" loading="lazy"></div>
+    <div class="photo-item" onclick="openLightbox('https://photos.smugmug.com/photos/i-5Vt8tbw/0/X2/i-5Vt8tbw.jpg')"><img src="https://photos.smugmug.com/photos/i-5Vt8tbw/0/X2/i-5Vt8tbw.jpg" alt="" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="gold">Kowshik &amp; Pallavi</span> — Forever begins here ♦
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <button class="lightbox-nav prev" onclick="navigateLightbox(-1)">&#8592;</button>
+  <img src="" alt="" id="lightbox-img">
+  <button class="lightbox-nav next" onclick="navigateLightbox(1)">&#8594;</button>
+</div>
+
+<script>
+  let currentIdx = 0;
+
+  // Reads the gallery in its current DOM order — important because arrangeGallery() reorders items after images load
+  function currentImageList() {
+    return Array.from(document.querySelectorAll('.photo-item img')).map(i => i.src);
+  }
+
+  function openLightbox(src) {
+    const list = currentImageList();
+    currentIdx = list.findIndex(s => s === src);
+    if (currentIdx === -1) currentIdx = 0;
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox-img').src = '';
+    document.body.style.overflow = '';
+  }
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+  function navigateLightbox(dir) {
+    const list = currentImageList();
+    currentIdx = (currentIdx + dir + list.length) % list.length;
+    document.getElementById('lightbox-img').src = list[currentIdx];
+  }
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  });
+
+  // Story-order arrangement: keeps the original photo sequence, but groups two
+  // consecutive portraits into a side-by-side row. A portrait that has no
+  // adjacent portrait partner gets a .solo class so CSS can center it.
+  function arrangeGallery() {
+    const grid = document.querySelector('.photo-grid');
+    if (!grid) return;
+    const items = Array.from(grid.querySelectorAll('.photo-item'));
+
+    const ready = items.map(item => {
+      const img = item.querySelector('img');
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(resolve => {
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      });
+    });
+
+    Promise.all(ready).then(() => {
+      // Detect orientation
+      items.forEach(item => {
+        const img = item.querySelector('img');
+        const isPortrait = img.naturalHeight > img.naturalWidth;
+        item.classList.add(isPortrait ? 'portrait' : 'landscape');
+        item.dataset.orientation = isPortrait ? 'portrait' : 'landscape';
+      });
+
+      // Rebuild grid in story order; pair consecutive portraits
+      grid.innerHTML = '';
+
+      let portraitRow = null;
+      let portraitCount = 0;
+
+      function flushPortraitRow() {
+        if (!portraitRow) return;
+        if (portraitCount === 1) portraitRow.classList.add('solo');
+        grid.appendChild(portraitRow);
+        portraitRow = null;
+        portraitCount = 0;
+      }
+
+      items.forEach(item => {
+        const isPortrait = item.dataset.orientation === 'portrait';
+
+        if (isPortrait) {
+          if (!portraitRow) {
+            portraitRow = document.createElement('div');
+            portraitRow.className = 'portrait-row';
+          }
+          portraitRow.appendChild(item);
+          portraitCount++;
+
+          if (portraitCount === 2) flushPortraitRow();
+
+        } else {
+          flushPortraitRow();
+          grid.appendChild(item);
+        }
+      });
+
+      flushPortraitRow();
+    });
+  }
+
+  window.addEventListener('load', arrangeGallery);
+</script>
+</body>
+</html>
